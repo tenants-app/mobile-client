@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
+import android.widget.Button
 import android.widget.Toast
 import com.tenants.tenants.api.RetrofitClient
 import com.tenants.tenants.models.Group
@@ -17,9 +18,11 @@ import retrofit2.Response
 
 class ChooseGroupActivity : AppCompatActivity() {
 
-    lateinit var recyclerView: RecyclerView
-    lateinit var adapter: RecyclerViewAdapter
-    var dataList:ArrayList<Model> = ArrayList()
+    private lateinit var adapter: RecyclerViewAdapter
+    private lateinit var recyclerView: RecyclerView
+    private lateinit var logoutButton: Button
+    private lateinit var addGroupButton: Button
+    private var dataList: ArrayList<Model> = ArrayList()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -44,6 +47,10 @@ class ChooseGroupActivity : AppCompatActivity() {
 
                 override fun onResponse(call: Call<GroupsResponse>, response: Response<GroupsResponse>) {
                     if (response.code() == 200) {
+                        if (response.body()!!.groups.isEmpty()) {
+                            setContentView(R.layout.empty_groups_view)
+                            connectListeners()
+                        }
                         for (group: Group in response.body()!!.groups) {
                             dataList.add(group)
                         }
@@ -56,7 +63,19 @@ class ChooseGroupActivity : AppCompatActivity() {
             })
     }
 
+    private fun connectListeners() {
+        logoutButton = findViewById(R.id.logout_button)
+        addGroupButton = findViewById(R.id.add_group_button)
 
+        logoutButton.setOnClickListener {
+            SharedPrefManager.getInstance(applicationContext).clear()
+
+            val intent = Intent(applicationContext, LoginActivity::class.java)
+            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+
+            startActivity(intent)
+        }
+    }
 
     private fun onGroupChoose(groupId: String) {
         SharedPrefManager.getInstance(applicationContext).saveGroup(groupId)

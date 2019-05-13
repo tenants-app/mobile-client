@@ -13,4 +13,6 @@
     <string name="email_required">Proszę podać email</string>
     <string name="password_required">Proszę podać hasło</string>
     <string name="invalid_credentials">Nieprawidłowe dane logowania</string>
+    <string name="no_groups">Nie znaleziono grup</string>
+    <string name="add_group">Utwórz grupę</string>
 </resources>
