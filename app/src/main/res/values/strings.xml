@@ -6,7 +6,11 @@
     <string name="nav_header_subtitle">android.studio@android.com</string>
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_settings">Settings</string>
-
-    <!-- TODO: Remove or change this placeholder text -->
+    <string name="action_logout">Wyloguj</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="select_group">Wybierz grupę</string>
+    <string name="cannot_get_groups">Nie udało się pobrać grup</string>
+    <string name="email_required">Proszę podać email</string>
+    <string name="password_required">Proszę podać hasło</string>
+    <string name="invalid_credentials">Nieprawidłowe dane logowania</string>
 </resources>
