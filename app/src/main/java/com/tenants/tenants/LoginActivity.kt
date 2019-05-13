@@ -19,7 +19,7 @@ class LoginActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
-        getWindow().setStatusBarColor(ContextCompat.getColor(this,R.color.colorPrimary))
+        getWindow().setStatusBarColor(ContextCompat.getColor(this,R.color.design_default_color_primary_dark))
 
         buttonLogin.setOnClickListener {
 
