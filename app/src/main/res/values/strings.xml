@@ -11,8 +11,11 @@
     <string name="select_group">Wybierz grupę</string>
     <string name="cannot_get_groups">Nie udało się pobrać grup</string>
     <string name="email_required">Proszę podać email</string>
+    <string name="username_required">Proszę podać nazwę użytkownika</string>
     <string name="password_required">Proszę podać hasło</string>
+    <string name="bank_account_number_required">Proszę podać numer konta bankowego</string>
     <string name="invalid_credentials">Nieprawidłowe dane logowania</string>
+    <string name="invalid_register_data">Nieprawidłowe dane rejestracji</string>
     <string name="no_groups">Nie znaleziono grup</string>
     <string name="add_group">Utwórz grupę</string>
     <string name="dont_have_account">Nie masz konta? Zarejestruj się!</string>

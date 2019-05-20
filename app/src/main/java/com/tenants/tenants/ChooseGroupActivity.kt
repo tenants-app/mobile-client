@@ -12,6 +12,7 @@ import com.tenants.tenants.models.Group
 import com.tenants.tenants.models.GroupsResponse
 import com.tenants.tenants.models.Model
 import com.tenants.tenants.storage.SharedPrefManager
+import kotlinx.android.synthetic.main.empty_groups_view.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -20,8 +21,6 @@ class ChooseGroupActivity : AppCompatActivity() {
 
     private lateinit var adapter: RecyclerViewAdapter
     private lateinit var recyclerView: RecyclerView
-    private lateinit var logoutButton: Button
-    private lateinit var addGroupButton: Button
     private var dataList: ArrayList<Model> = ArrayList()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -64,10 +63,7 @@ class ChooseGroupActivity : AppCompatActivity() {
     }
 
     private fun connectListeners() {
-        logoutButton = findViewById(R.id.logout_button)
-        addGroupButton = findViewById(R.id.add_group_button)
-
-        logoutButton.setOnClickListener {
+        logout_button.setOnClickListener {
             SharedPrefManager.getInstance(applicationContext).clear()
 
             val intent = Intent(applicationContext, LoginActivity::class.java)

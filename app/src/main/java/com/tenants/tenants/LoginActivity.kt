@@ -20,22 +20,40 @@ class LoginActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
         getWindow().setStatusBarColor(ContextCompat.getColor(this,R.color.design_default_color_primary_dark))
+        connectListeners()
+    }
+
+    override fun onStart() {
+        super.onStart()
+
+        if(SharedPrefManager.getInstance(this).isGroupChoosen){
+            val intent = Intent(applicationContext, MainActivity::class.java)
+            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+
+            startActivity(intent)
+        } else if(SharedPrefManager.getInstance(this).isLoggedIn){
+            val intent = Intent(applicationContext, ChooseGroupActivity::class.java)
+            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+
+            startActivity(intent)
+        }
+    }
+
+    private fun connectListeners() {
+
+        textViewRegister.setOnClickListener{
+            val intent = Intent(applicationContext, RegisterActivity::class.java)
+            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+
+            startActivity(intent)
+        }
 
         buttonLogin.setOnClickListener {
 
             val email = editTextEmail.text.toString().trim()
             val password = editTextPassword.text.toString().trim()
 
-            if (email.isEmpty()) {
-                editTextEmail.error = getString(R.string.email_required)
-                editTextEmail.requestFocus()
-                return@setOnClickListener
-            }
-
-
-            if (password.isEmpty()) {
-                editTextPassword.error = getString(R.string.password_required)
-                editTextPassword.requestFocus()
+            if(!validateFields(email, password)) {
                 return@setOnClickListener
             }
 
@@ -63,24 +81,23 @@ class LoginActivity : AppCompatActivity() {
 
                     }
                 })
-
         }
-
     }
 
-    override fun onStart() {
-        super.onStart()
+    private fun validateFields(email: String, password: String): Boolean {
 
-        if(SharedPrefManager.getInstance(this).isGroupChoosen){
-            val intent = Intent(applicationContext, MainActivity::class.java)
-            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-
-            startActivity(intent)
-        } else if(SharedPrefManager.getInstance(this).isLoggedIn){
-            val intent = Intent(applicationContext, ChooseGroupActivity::class.java)
-            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-
-            startActivity(intent)
+        if (email.isEmpty()) {
+            editTextEmail.error = getString(R.string.email_required)
+            editTextEmail.requestFocus()
+            return false
         }
+
+        if (password.isEmpty()) {
+            editTextPassword.error = getString(R.string.password_required)
+            editTextPassword.requestFocus()
+            return false
+        }
+
+        return true
     }
 }

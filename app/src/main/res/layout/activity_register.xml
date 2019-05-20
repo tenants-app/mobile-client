@@ -12,7 +12,7 @@
             android:layout_height="wrap_content"
             android:layout_above="@id/linearLayout"
             android:layout_marginBottom="126dp"
-            android:text="Logowanie"
+            android:text="Rejestracja"
             android:textAppearance="@style/TextAppearance.AppCompat.Display1"
             android:layout_alignParentEnd="true"
             android:layout_marginEnd="106dp" android:layout_alignParentStart="true" android:layout_marginStart="105dp"
@@ -30,7 +30,15 @@
             android:padding="10dp">
 
         <EditText
-                android:id="@+id/editTextEmail"
+                android:id="@+id/registerEditTextUsername"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:drawablePadding="5dp"
+                android:hint="Nazwa użytkownika"
+                android:backgroundTint="@android:color/background_light"/>
+
+        <EditText
+                android:id="@+id/registerEditTextEmail"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:drawablePadding="5dp"
@@ -40,7 +48,7 @@
                 android:backgroundTint="@android:color/background_light"/>
 
         <EditText
-                android:id="@+id/editTextPassword"
+                android:id="@+id/registerEditTextPassword"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:drawablePadding="5dp"
@@ -49,31 +57,28 @@
                 android:importantForAutofill="no"
                 android:backgroundTint="@android:color/background_light"/>
 
+        <EditText
+                android:id="@+id/registerEditTextBankAccountNumber"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:drawablePadding="5dp"
+                android:hint="Numer konta bankowego"
+                android:importantForAutofill="no"
+                android:backgroundTint="@android:color/background_light"/>
+
 
     </LinearLayout>
 
-    <TextView
-            android:id="@+id/textViewRegister"
-            android:layout_width="152dp"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/linearLayout"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="15dp"
-            android:lineSpacingExtra="7dp"
-            android:text="@string/dont_have_account"
-            android:textAlignment="center"
-            android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
-            android:textColor="@android:color/background_light"/>
 
     <Button
-            android:id="@+id/buttonLogin"
+            android:id="@+id/buttonRegister"
             android:layout_width="180dp"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
             android:layout_marginBottom="15dp"
             android:background="@color/design_default_color_primary"
-            android:text="Zaloguj"
+            android:text="Zarejestruj"
             android:textAllCaps="false"
             android:textColor="@android:color/background_light"/>
 

@@ -34,7 +34,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:drawablePadding="5dp"
-                android:hint="email"
+                android:hint="Email"
                 android:inputType="textEmailAddress"
                 android:autofillHints=""
                 android:backgroundTint="@android:color/background_light"/>
@@ -44,7 +44,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:drawablePadding="5dp"
-                android:hint="hasło"
+                android:hint="Hasło"
                 android:inputType="textPassword"
                 android:importantForAutofill="no"
                 android:backgroundTint="@android:color/background_light"/>
