@@ -3,7 +3,6 @@ package com.tenants.tenants
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import android.support.design.widget.Snackbar
 import android.support.design.widget.NavigationView
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentTransaction
@@ -12,7 +11,8 @@ import android.support.v7.app.ActionBarDrawerToggle
 import android.support.v7.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
-import com.tenants.tenants.Fragments.*
+import android.widget.TextView
+import com.tenants.tenants.fragments.*
 import com.tenants.tenants.storage.SharedPrefManager
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.app_bar_main.*
@@ -37,10 +37,9 @@ class MainActivity : AppCompatActivity(),
         setContentView(R.layout.activity_main)
         setSupportActionBar(toolbar)
 
-        fab.setOnClickListener { view ->
-            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                .setAction("Action", null).show()
-        }
+        val headerView = nav_view.getHeaderView(0)
+        val navGroupName = headerView.findViewById<TextView>(R.id.sidebar_group_name)
+        navGroupName.setText(SharedPrefManager.getInstance(applicationContext).groupName)
 
         val toggle = ActionBarDrawerToggle(
             this, drawer_layout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close
@@ -52,10 +51,6 @@ class MainActivity : AppCompatActivity(),
         nav_view.setNavigationItemSelectedListener(this)
 
         homeFragment = HomeFragment.newInstance("", "")
-        debtsFragment = DebtsFragment.newInstance("", "")
-        shoppingListFragment = ShoppingListFragment.newInstance("", "")
-        billsFragment = BillsFragment.newInstance("", "")
-        cleaningFragment = CleaningFragment.newInstance("", "")
 
         supportFragmentManager
             .beginTransaction()
@@ -101,18 +96,23 @@ class MainActivity : AppCompatActivity(),
         // Handle navigation view item clicks here.
         when (item.itemId) {
             R.id.sidebar_home -> {
+                homeFragment = HomeFragment.newInstance("", "")
                 switchFragment(homeFragment)
             }
             R.id.sidebar_debts -> {
+                debtsFragment = DebtsFragment.newInstance()
                 switchFragment(debtsFragment)
             }
             R.id.sidebar_shopping_list -> {
+                shoppingListFragment = ShoppingListFragment.newInstance("", "")
                 switchFragment(shoppingListFragment)
             }
             R.id.sidebar_bills -> {
+                billsFragment = BillsFragment.newInstance("", "")
                 switchFragment(billsFragment)
             }
             R.id.sidebar_cleaning -> {
+                cleaningFragment = CleaningFragment.newInstance("", "")
                 switchFragment(cleaningFragment)
             }
         }

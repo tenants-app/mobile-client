@@ -9,7 +9,6 @@ import retrofit2.converter.gson.GsonConverterFactory
 class RetrofitClient constructor(context: Context) {
 
     private val TOKEN = SharedPrefManager.getInstance(context).token
-    //private val TOKEN =  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVjOTE1NjRhYmI2ZDdmNTc4MGQwNzJmZiIsInVzZXJuYW1lIjoiZXhhbXBsZTEyMiIsImVtYWlsIjoiZXhhbXBsZUBleG1wbGUuY29tIiwiZXhwIjoxNTYwMDEyMzQxLCJpYXQiOjE1NTQ4MjgzNDF9.OF3BMrhQzxhWqcQFtod1MEyWrGh3wkKIresra_6fGvY"
     private val BASE_URL = "http://10.0.2.2:3000"
     //private val BASE_URL = "http://207.154.242.233"
 

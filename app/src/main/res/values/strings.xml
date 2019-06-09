@@ -19,4 +19,6 @@
     <string name="no_groups">Nie znaleziono grup</string>
     <string name="add_group">Utwórz grupę</string>
     <string name="dont_have_account">Nie masz konta? Zarejestruj się!</string>
+    <string name="debt_added">Dług został przekazany dłużnikowi</string>
+    <string name="debt_paid">Dług został spłacony</string>
 </resources>

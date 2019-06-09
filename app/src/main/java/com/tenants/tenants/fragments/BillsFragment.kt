@@ -1,4 +1,4 @@
-package com.tenants.tenants.Fragments
+package com.tenants.tenants.fragments
 
 import android.content.Context
 import android.net.Uri
@@ -18,13 +18,13 @@ private const val ARG_PARAM2 = "param2"
 /**
  * A simple [Fragment] subclass.
  * Activities that contain this fragment must implement the
- * [ShoppingListFragment.OnFragmentInteractionListener] interface
+ * [BillsFragment.OnFragmentInteractionListener] interface
  * to handle interaction events.
- * Use the [ShoppingListFragment.newInstance] factory method to
+ * Use the [BillsFragment.newInstance] factory method to
  * create an instance of this fragment.
  *
  */
-class ShoppingListFragment : Fragment() {
+class BillsFragment : Fragment() {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
@@ -43,7 +43,7 @@ class ShoppingListFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_shopping_list, container, false)
+        return inflater.inflate(R.layout.fragment_bills, container, false)
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -72,7 +72,7 @@ class ShoppingListFragment : Fragment() {
      * activity.
      *
      *
-     * See the Android Training lesson [Communicating with Other Fragments]
+     * See the Android Training lesson [Communicating with Other fragments]
      * (http://developer.android.com/training/basics/fragments/communicating.html)
      * for more information.
      */
@@ -88,12 +88,12 @@ class ShoppingListFragment : Fragment() {
          *
          * @param param1 Parameter 1.
          * @param param2 Parameter 2.
-         * @return A new instance of fragment ShoppingListFragment.
+         * @return A new instance of fragment BillsFragment.
          */
         // TODO: Rename and change types and number of parameters
         @JvmStatic
         fun newInstance(param1: String, param2: String) =
-            ShoppingListFragment().apply {
+            BillsFragment().apply {
                 arguments = Bundle().apply {
                     putString(ARG_PARAM1, param1)
                     putString(ARG_PARAM2, param2)

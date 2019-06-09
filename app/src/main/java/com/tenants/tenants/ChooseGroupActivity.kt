@@ -5,12 +5,10 @@ import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
-import android.widget.Button
 import android.widget.Toast
 import com.tenants.tenants.api.RetrofitClient
 import com.tenants.tenants.models.Group
 import com.tenants.tenants.models.GroupsResponse
-import com.tenants.tenants.models.Model
 import com.tenants.tenants.storage.SharedPrefManager
 import kotlinx.android.synthetic.main.empty_groups_view.*
 import retrofit2.Call
@@ -19,9 +17,9 @@ import retrofit2.Response
 
 class ChooseGroupActivity : AppCompatActivity() {
 
-    private lateinit var adapter: RecyclerViewAdapter
+    private lateinit var adapterGroup: GroupRecyclerViewAdapter
     private lateinit var recyclerView: RecyclerView
-    private var dataList: ArrayList<Model> = ArrayList()
+    private var dataList: ArrayList<Group> = ArrayList()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,9 +28,9 @@ class ChooseGroupActivity : AppCompatActivity() {
         supportActionBar!!.setTitle(R.string.select_group)
 
         recyclerView = findViewById(R.id.recycler_view)
-        adapter = RecyclerViewAdapter(this, dataList, onClickListener = { groupId -> onGroupChoose(groupId)})
+        adapterGroup = GroupRecyclerViewAdapter(this, dataList, onClickListener = { group -> onGroupChoose(group)})
         recyclerView.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL,false)
-        recyclerView.adapter = adapter
+        recyclerView.adapter = adapterGroup
 
         getUserGroups()
     }
@@ -56,7 +54,7 @@ class ChooseGroupActivity : AppCompatActivity() {
                     } else {
                         Toast.makeText(applicationContext, getString(R.string.cannot_get_groups), Toast.LENGTH_LONG).show()
                     }
-                    adapter.notifyDataSetChanged()
+                    adapterGroup.notifyDataSetChanged()
 
                 }
             })
@@ -73,8 +71,8 @@ class ChooseGroupActivity : AppCompatActivity() {
         }
     }
 
-    private fun onGroupChoose(groupId: String) {
-        SharedPrefManager.getInstance(applicationContext).saveGroup(groupId)
+    private fun onGroupChoose(group: Group) {
+        SharedPrefManager.getInstance(applicationContext).saveGroup(group)
 
         val intent = Intent(applicationContext, MainActivity::class.java)
         intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK

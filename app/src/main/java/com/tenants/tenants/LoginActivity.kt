@@ -19,7 +19,7 @@ class LoginActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
-        getWindow().setStatusBarColor(ContextCompat.getColor(this,R.color.design_default_color_primary_dark))
+        getWindow().setStatusBarColor(ContextCompat.getColor(this,R.color.theme_light))
         connectListeners()
     }
 
@@ -43,7 +43,7 @@ class LoginActivity : AppCompatActivity() {
 
         textViewRegister.setOnClickListener{
             val intent = Intent(applicationContext, RegisterActivity::class.java)
-            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_NO_HISTORY
 
             startActivity(intent)
         }

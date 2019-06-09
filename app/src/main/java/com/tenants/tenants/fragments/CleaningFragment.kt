@@ -1,4 +1,4 @@
-package com.tenants.tenants.Fragments
+package com.tenants.tenants.fragments
 
 import android.content.Context
 import android.net.Uri
@@ -72,7 +72,7 @@ class CleaningFragment : Fragment() {
      * activity.
      *
      *
-     * See the Android Training lesson [Communicating with Other Fragments]
+     * See the Android Training lesson [Communicating with Other fragments]
      * (http://developer.android.com/training/basics/fragments/communicating.html)
      * for more information.
      */

@@ -1,11 +1,5 @@
 package com.tenants.tenants.models
 
-data class Group(var _id: String, var name: String): Model {
-    override fun getDisplayName(): String {
-        return name
-    }
+data class Group(var _id: String, var name: String, var members: Array<Member>)
 
-    override fun getId(): String {
-        return _id
-    }
-}
+data class Member(var _id: String, var username: String, var email: String)

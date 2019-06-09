@@ -18,7 +18,7 @@ class RegisterActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_register)
-        getWindow().setStatusBarColor(ContextCompat.getColor(this,R.color.design_default_color_primary_dark))
+        getWindow().setStatusBarColor(ContextCompat.getColor(this,R.color.theme_light))
         connectListeners()
     }
 

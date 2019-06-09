@@ -1,6 +1,8 @@
 package com.tenants.tenants.storage
 
 import android.content.Context
+import com.google.gson.Gson
+import com.tenants.tenants.models.Group
 
 class SharedPrefManager private constructor(private val mCtx: Context){
 
@@ -20,14 +22,28 @@ class SharedPrefManager private constructor(private val mCtx: Context){
     val isGroupChoosen: Boolean
         get() {
             val sharedPreferences = mCtx.getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE)
-            return sharedPreferences.getString("group", null) != null
+            return sharedPreferences.getString("group_id", null) != null
 
         }
 
-    val group: String?
+    val groupId: String?
         get() {
             val sharedPreferences = mCtx.getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE)
-            return sharedPreferences.getString("group", null)
+            return sharedPreferences.getString("group_id", null)
+
+        }
+
+    val groupName: String?
+        get() {
+            val sharedPreferences = mCtx.getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE)
+            return sharedPreferences.getString("group_name", null)
+
+        }
+
+    val groupMembers: String?
+        get() {
+            val sharedPreferences = mCtx.getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE)
+            return sharedPreferences.getString("group_members", null)
 
         }
 
@@ -41,11 +57,14 @@ class SharedPrefManager private constructor(private val mCtx: Context){
         editor.apply()
     }
 
-    fun saveGroup(groupId: String) {
+    fun saveGroup(group: Group) {
         val sharedPreferences = mCtx.getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE)
         val editor = sharedPreferences.edit()
+        val gson = Gson()
 
-        editor.putString("group", groupId)
+        editor.putString("group_id", group._id)
+        editor.putString("group_name", group.name)
+        editor.putString("group_members", gson.toJson(group.members))
 
         editor.apply()
     }

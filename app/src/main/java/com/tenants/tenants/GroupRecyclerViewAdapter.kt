@@ -6,9 +6,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import com.tenants.tenants.models.Model
+import com.tenants.tenants.models.Group
 
-class RecyclerViewAdapter(private var context: Context, private var dataList: ArrayList<Model>, private val onClickListener: (String) -> Unit): RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder>() {
+class GroupRecyclerViewAdapter(private var context: Context, private var dataList: ArrayList<Group>, private val onClickListener: (Group) -> Unit): RecyclerView.Adapter<GroupRecyclerViewAdapter.ViewHolder>() {
 
     override fun getItemCount(): Int {
         return dataList.size
@@ -19,9 +19,9 @@ class RecyclerViewAdapter(private var context: Context, private var dataList: Ar
     }
 
     override fun onBindViewHolder(holder:ViewHolder, position: Int) {
-        holder.textView.text = dataList[position].getDisplayName()
+        holder.textView.text = dataList[position].name
         holder.textView.setOnClickListener { view ->
-            onClickListener.invoke(dataList[position].getId())
+            onClickListener.invoke(dataList[position])
         }
     }
 
