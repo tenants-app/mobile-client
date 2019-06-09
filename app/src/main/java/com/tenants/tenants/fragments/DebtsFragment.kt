@@ -5,7 +5,6 @@ import android.content.Context
 import android.net.Uri
 import android.os.Bundle
 import android.support.v4.app.Fragment
-import android.support.v4.app.FragmentTransaction
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
@@ -70,10 +69,11 @@ class DebtsFragment : Fragment() {
 
                 override fun onResponse(call: Call<DebtsResponse>, response: Response<DebtsResponse>) {
                     if (response.code() == 200) {
-                        for (debt: Debt in response.body()!!.debts) {
-                            if (!debt.paid) {
+                        val debtsCollection: Array<Debt> = response.body()!!.debts
+                        debtsCollection.sortBy { debt -> debt.paid }
+
+                        for (debt: Debt in debtsCollection) {
                                 dataList.add(debt)
-                            }
                         }
                     }
                     adapterDebt.notifyDataSetChanged()
@@ -92,7 +92,7 @@ class DebtsFragment : Fragment() {
                 override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
                     if (response.code() == 200) {
                         Toast.makeText(baseContext, getString(R.string.debt_paid), Toast.LENGTH_LONG).show()
-                        dataList.remove(debt)
+                        dataList.get(dataList.indexOf(debt)).paid = true
                         adapterDebt.notifyDataSetChanged()
                     }
                 }
@@ -118,7 +118,7 @@ class DebtsFragment : Fragment() {
 
         val  mAlertDialog = mBuilder.show()
 
-        mDialogView.dialogLoginBtn.setOnClickListener {
+        mDialogView.dialogAddDebtButton.setOnClickListener {
 
             val debtName = mDialogView.debtName.text.toString()
             val debtValue = mDialogView.debtValue.text.toString()
@@ -140,7 +140,7 @@ class DebtsFragment : Fragment() {
             addNewDebt(debtName, debtValue.toInt(), debtHolder)
         }
 
-        mDialogView.dialogCancelBtn.setOnClickListener {
+        mDialogView.dialogDebtCancelButton.setOnClickListener {
             mAlertDialog.dismiss()
         }
     }

@@ -41,12 +41,12 @@
                         android:textAlignment="textStart" android:layout_marginStart="8dp"
                         app:layout_constraintStart_toStartOf="parent" android:layout_marginTop="8dp"
                         app:layout_constraintTop_toBottomOf="@+id/textView3" android:layout_marginBottom="8dp"
-                        app:layout_constraintBottom_toTopOf="@+id/textView6"/>
+                        app:layout_constraintBottom_toTopOf="@+id/goDebtText"/>
                 <TextView
                         android:text="Zobacz szczegóły"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:id="@+id/textView6" app:layout_constraintStart_toStartOf="parent"
+                        android:id="@+id/goDebtText" app:layout_constraintStart_toStartOf="parent"
                         android:layout_marginStart="8dp" android:layout_marginBottom="8dp"
                         app:layout_constraintBottom_toBottomOf="parent" android:textSize="12sp"/>
                 <android.support.design.widget.FloatingActionButton
@@ -101,7 +101,7 @@
                     android:layout_marginStart="8dp" android:layout_marginBottom="8dp"
                     app:layout_constraintBottom_toBottomOf="parent" android:textSize="12sp"/>
             <android.support.design.widget.FloatingActionButton
-                    android:src="@drawable/ic_payment"
+                    android:src="@drawable/ic_home"
                     android:layout_width="55dp"
                     android:layout_height="58dp"
                     android:clickable="false"
@@ -144,16 +144,16 @@
                     android:textAlignment="textStart" android:layout_marginStart="8dp"
                     app:layout_constraintStart_toStartOf="parent" android:layout_marginTop="8dp"
                     app:layout_constraintTop_toBottomOf="@+id/textView3b" android:layout_marginBottom="8dp"
-                    app:layout_constraintBottom_toTopOf="@+id/textView6b"/>
+                    app:layout_constraintBottom_toTopOf="@+id/goBillsText"/>
             <TextView
                     android:text="Zobacz szczegóły"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:id="@+id/textView6b" app:layout_constraintStart_toStartOf="parent"
+                    android:id="@+id/goBillsText" app:layout_constraintStart_toStartOf="parent"
                     android:layout_marginStart="8dp" android:layout_marginBottom="8dp"
                     app:layout_constraintBottom_toBottomOf="parent" android:textSize="12sp"/>
             <android.support.design.widget.FloatingActionButton
-                    android:src="@drawable/ic_payment"
+                    android:src="@drawable/ic_bills"
                     android:layout_width="55dp"
                     android:layout_height="58dp"
                     android:clickable="false"
@@ -196,16 +196,16 @@
                     android:textAlignment="textStart" android:layout_marginStart="8dp"
                     app:layout_constraintStart_toStartOf="parent" android:layout_marginTop="8dp"
                     app:layout_constraintTop_toBottomOf="@+id/textView3c" android:layout_marginBottom="8dp"
-                    app:layout_constraintBottom_toTopOf="@+id/textView6c"/>
+                    app:layout_constraintBottom_toTopOf="@+id/goShoppingListText"/>
             <TextView
                     android:text="Zobacz szczegóły"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:id="@+id/textView6c" app:layout_constraintStart_toStartOf="parent"
+                    android:id="@+id/goShoppingListText" app:layout_constraintStart_toStartOf="parent"
                     android:layout_marginStart="8dp" android:layout_marginBottom="8dp"
                     app:layout_constraintBottom_toBottomOf="parent" android:textSize="12sp"/>
             <android.support.design.widget.FloatingActionButton
-                    android:src="@drawable/ic_payment"
+                    android:src="@drawable/ic_shopping_basket"
                     android:layout_width="55dp"
                     android:layout_height="58dp"
                     android:clickable="false"

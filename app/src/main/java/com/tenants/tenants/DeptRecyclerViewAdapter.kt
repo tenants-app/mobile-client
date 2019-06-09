@@ -1,6 +1,9 @@
 package com.tenants.tenants
 
 import android.content.Context
+import android.graphics.Color
+import android.support.design.card.MaterialCardView
+import android.support.v4.content.ContextCompat
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
@@ -29,14 +32,24 @@ class DeptRecyclerViewAdapter(private var context: Context, private var dataList
         holder.setAsPaid.setOnClickListener { view ->
             onClickListener.invoke(dataList[position])
         }
+
+        if (dataList[position].paid) {
+            holder.card.setBackgroundColor(ContextCompat.getColor(context, R.color.light_green))
+            holder.setAsPaid.visibility = View.GONE
+        } else {
+            holder.card.setBackgroundColor(Color.WHITE)
+            holder.setAsPaid.visibility = View.VISIBLE
+        }
+
     }
 
     class ViewHolder(itemView: View?) : RecyclerView.ViewHolder(itemView!!) {
-        var debtName: TextView = itemView!!.findViewById(R.id.debt_name)
-        var debtDate: TextView = itemView!!.findViewById(R.id.debt_date)
+        var debtName: TextView = itemView!!.findViewById(R.id.bill_name)
+        var debtDate: TextView = itemView!!.findViewById(R.id.bill_date)
         var debtValue: TextView = itemView!!.findViewById(R.id.debt_value)
-        var debtHolder: TextView = itemView!!.findViewById(R.id.debt_holder)
-        var debtBankNumber: TextView = itemView!!.findViewById(R.id.debt_holder_bank_number)
+        var debtHolder: TextView = itemView!!.findViewById(R.id.bill_holder)
+        var debtBankNumber: TextView = itemView!!.findViewById(R.id.bill_holder_bank_number)
         var setAsPaid: Button = itemView!!.findViewById(R.id.set_as_paid_button)
+        var card: MaterialCardView = itemView!!.findViewById(R.id.materialCardView)
     }
 }

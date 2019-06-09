@@ -1,59 +1,159 @@
 package com.tenants.tenants.fragments
 
+import android.app.AlertDialog
 import android.content.Context
 import android.net.Uri
 import android.os.Bundle
 import android.support.v4.app.Fragment
+import android.support.v7.widget.LinearLayoutManager
+import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import com.tenants.tenants.BillRecyclerViewAdapter
 
 import com.tenants.tenants.R
+import com.tenants.tenants.api.RetrofitClient
+import com.tenants.tenants.models.*
+import com.tenants.tenants.storage.SharedPrefManager
+import kotlinx.android.synthetic.main.fragment_debts.view.*
+import kotlinx.android.synthetic.main.new_bill_dialog.view.*
+import okhttp3.ResponseBody
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
 
-/**
- * A simple [Fragment] subclass.
- * Activities that contain this fragment must implement the
- * [BillsFragment.OnFragmentInteractionListener] interface
- * to handle interaction events.
- * Use the [BillsFragment.newInstance] factory method to
- * create an instance of this fragment.
- *
- */
 class BillsFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
-    private var listener: OnFragmentInteractionListener? = null
+    private var listener: BillsFragment.OnFragmentInteractionListener? = null
+    private var currentGroupId: String? = null
+    private var currentGroupMembers: String? = null
+    private var dataList: ArrayList<Bill> = ArrayList()
+    private lateinit var baseContext: Context
+    private lateinit var adapterBill: BillRecyclerViewAdapter
+    private lateinit var recyclerView: RecyclerView
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,savedInstanceState: Bundle?): View? {
+        val view: View = inflater.inflate(R.layout.fragment_bills, container, false)
+
+        val sharedPreferences: SharedPrefManager = SharedPrefManager.getInstance(baseContext)
+        currentGroupId = sharedPreferences.groupId
+        currentGroupMembers = sharedPreferences.groupMembers
+
+        view.fab.setOnClickListener { view ->
+            showDialog()
+        }
+
+        recyclerView = view.findViewById(R.id.recycler_view_bills)
+        adapterBill = BillRecyclerViewAdapter(baseContext, dataList, onClickListener = { bill -> onSetBillAsPaid(bill)})
+        recyclerView.layoutManager = LinearLayoutManager(baseContext, LinearLayoutManager.VERTICAL,false)
+        recyclerView.adapter = adapterBill
+
+        getUserBills()
+
+        return view
+    }
+
+
+    private fun getUserBills() {
+        RetrofitClient(baseContext).instance.getUserBills(currentGroupId)
+            .enqueue(object : Callback<BillsResponse> {
+                override fun onFailure(call: Call<BillsResponse>, t: Throwable) {
+                    Toast.makeText(baseContext, t.message, Toast.LENGTH_LONG).show()
+                }
+
+                override fun onResponse(call: Call<BillsResponse>, response: Response<BillsResponse>) {
+                    if (response.code() == 200) {
+                        val billsCollection: Array<Bill> = response.body()!!.bills
+                        billsCollection.sortBy { bill -> bill.paid }
+
+                        for (bill: Bill in billsCollection) {
+                            dataList.add(bill)
+                        }
+                    }
+                    adapterBill.notifyDataSetChanged()
+                }
+            })
+    }
+
+
+    private fun onSetBillAsPaid(bill: Bill) {
+        RetrofitClient(baseContext).instance.setBillAsPaid(currentGroupId, bill._id)
+            .enqueue(object : Callback<ResponseBody> {
+                override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
+                    Toast.makeText(baseContext, t.message, Toast.LENGTH_LONG).show()
+                }
+
+                override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
+                    if (response.code() == 200) {
+                        Toast.makeText(baseContext, getString(R.string.bill_paid), Toast.LENGTH_LONG).show()
+                        dataList.get(dataList.indexOf(bill)).debtors[0].paid = true
+                        adapterBill.notifyDataSetChanged()
+                    }
+                }
+            })
+    }
+
+
+    fun showDialog() {
+        val newBillDialogView = LayoutInflater.from(baseContext).inflate(R.layout.new_bill_dialog, null)
+
+        val mBuilder = AlertDialog.Builder(baseContext)
+            .setView(newBillDialogView)
+            .setTitle("Nowy rachunek")
+
+        val  mAlertDialog = mBuilder.show()
+
+        newBillDialogView.dialogBillAddButton.setOnClickListener {
+
+            val billName = newBillDialogView.billName.text.toString()
+            val billValue = newBillDialogView.billValue.text.toString()
+
+            if (billName.isEmpty()) {
+                newBillDialogView.billName.error = getString(R.string.debt_name_required)
+                newBillDialogView.billName.requestFocus()
+                return@setOnClickListener
+            }
+
+            if (billValue.isEmpty()) {
+                newBillDialogView.billValue.error = getString(R.string.debt_value_required)
+                newBillDialogView.billValue.requestFocus()
+                return@setOnClickListener
+            }
+
+            mAlertDialog.dismiss()
+            addNewBill(billName, billValue.toInt())
+        }
+
+        newBillDialogView.dialogBillCancelButton.setOnClickListener {
+            mAlertDialog.dismiss()
         }
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_bills, container, false)
+
+    fun addNewBill(debtName: String, debtValue: Int) {
+        RetrofitClient(baseContext).instance.addNewBill(currentGroupId, debtName, debtValue)
+            .enqueue(object : Callback<ResponseBody> {
+                override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
+                    Toast.makeText(baseContext, t.message, Toast.LENGTH_LONG).show()
+                }
+
+                override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
+                    if (response.code() == 200) {
+                        Toast.makeText(baseContext, getString(R.string.bill_added), Toast.LENGTH_LONG).show()
+                        dataList.clear()
+                        getUserBills()
+                    }
+                }
+            })
     }
 
-    // TODO: Rename method, update argument and hook method into UI event
-    fun onButtonPressed(uri: Uri) {
-        listener?.onFragmentInteraction(uri)
-    }
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        if (context is OnFragmentInteractionListener) {
+        baseContext = context
+        if (context is BillsFragment.OnFragmentInteractionListener) {
             listener = context
         } else {
             throw RuntimeException(context.toString() + " must implement OnFragmentInteractionListener")
@@ -65,39 +165,15 @@ class BillsFragment : Fragment() {
         listener = null
     }
 
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     *
-     *
-     * See the Android Training lesson [Communicating with Other fragments]
-     * (http://developer.android.com/training/basics/fragments/communicating.html)
-     * for more information.
-     */
+
     interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         fun onFragmentInteraction(uri: Uri)
     }
 
+
     companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment BillsFragment.
-         */
-        // TODO: Rename and change types and number of parameters
         @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            BillsFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
-            }
+        fun newInstance() = BillsFragment()
     }
 }

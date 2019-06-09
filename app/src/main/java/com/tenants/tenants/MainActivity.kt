@@ -104,11 +104,11 @@ class MainActivity : AppCompatActivity(),
                 switchFragment(debtsFragment)
             }
             R.id.sidebar_shopping_list -> {
-                shoppingListFragment = ShoppingListFragment.newInstance("", "")
+                shoppingListFragment = ShoppingListFragment.newInstance()
                 switchFragment(shoppingListFragment)
             }
             R.id.sidebar_bills -> {
-                billsFragment = BillsFragment.newInstance("", "")
+                billsFragment = BillsFragment.newInstance()
                 switchFragment(billsFragment)
             }
             R.id.sidebar_cleaning -> {

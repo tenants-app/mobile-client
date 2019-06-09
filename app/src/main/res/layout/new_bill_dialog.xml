@@ -7,32 +7,29 @@
         android:padding="10dp">
 
     <EditText
-            android:id="@+id/debtName"
+            android:id="@+id/billName"
             android:hint="Nazwa"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" android:inputType="text"/>
     <EditText
-            android:id="@+id/debtValue"
+            android:id="@+id/billValue"
             android:hint="Kwota (PLN)"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" android:inputType="number"/>
 
-    <Spinner
-            android:layout_width="match_parent"
-            android:layout_height="41dp" android:id="@+id/spinner"/>
     <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:gravity="center">
         <Button
-                android:id="@+id/dialogAddDebtButton"
+                android:id="@+id/dialogBillAddButton"
                 android:text="Dodaj"
                 style="@android:style/Widget.Material.Light.Button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
         <Button
-                android:id="@+id/dialogDebtCancelButton"
+                android:id="@+id/dialogBillCancelButton"
                 android:text="Anuluj"
                 style="@android:style/Widget.Material.Light.Button"
                 android:layout_width="wrap_content"
