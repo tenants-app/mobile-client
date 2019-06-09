@@ -61,4 +61,7 @@ interface Api {
     @GET("/groups/{group_id}/bills")
     fun getUserBills(@Path(value = "group_id", encoded = true) groupId: String?):Call<BillsResponse>
 
+    @GET("/groups/{group_id}/duties")
+    fun getDuties(@Path(value = "group_id", encoded = true) groupId: String?):Call<DutiesResponse>
+
 }

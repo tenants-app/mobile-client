@@ -66,7 +66,7 @@ class BillsFragment : Fragment() {
                 override fun onResponse(call: Call<BillsResponse>, response: Response<BillsResponse>) {
                     if (response.code() == 200) {
                         val billsCollection: Array<Bill> = response.body()!!.bills
-                        billsCollection.sortBy { bill -> bill.paid }
+                        billsCollection.sortBy { bill -> bill.debtors[0].paid }
 
                         for (bill: Bill in billsCollection) {
                             dataList.add(bill)

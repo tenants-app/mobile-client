@@ -112,7 +112,7 @@ class MainActivity : AppCompatActivity(),
                 switchFragment(billsFragment)
             }
             R.id.sidebar_cleaning -> {
-                cleaningFragment = CleaningFragment.newInstance("", "")
+                cleaningFragment = CleaningFragment.newInstance()
                 switchFragment(cleaningFragment)
             }
         }
