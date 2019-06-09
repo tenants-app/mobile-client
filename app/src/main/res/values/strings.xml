@@ -11,6 +11,8 @@
     <string name="select_group">Wybierz grupę</string>
     <string name="cannot_get_groups">Nie udało się pobrać grup</string>
     <string name="email_required">Proszę podać email</string>
+    <string name="debt_name_required">Proszę podać nazwę</string>
+    <string name="debt_value_required">Proszę podać kwotę</string>
     <string name="username_required">Proszę podać nazwę użytkownika</string>
     <string name="password_required">Proszę podać hasło</string>
     <string name="bank_account_number_required">Proszę podać numer konta bankowego</string>

@@ -7,17 +7,15 @@
         android:padding="10dp">
 
     <EditText
-            android:id="@+id/dialogNameEt"
+            android:id="@+id/debtName"
             android:hint="Nazwa"
-            android:inputType="textPersonName"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content" android:inputType="text"/>
     <EditText
-            android:id="@+id/dialogEmailEt"
+            android:id="@+id/debtValue"
             android:hint="Kwota"
-            android:inputType="textEmailAddress"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content" android:inputType="number"/>
 
     <Spinner
             android:layout_width="match_parent"

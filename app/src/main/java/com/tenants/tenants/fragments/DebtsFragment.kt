@@ -119,13 +119,25 @@ class DebtsFragment : Fragment() {
         val  mAlertDialog = mBuilder.show()
 
         mDialogView.dialogLoginBtn.setOnClickListener {
-            mAlertDialog.dismiss()
 
-            val debtName = mDialogView.dialogNameEt.text.toString()
-            val debtValue = mDialogView.dialogEmailEt.text.toString().toInt()
+            val debtName = mDialogView.debtName.text.toString()
+            val debtValue = mDialogView.debtValue.text.toString()
             val debtHolder = membersList.get(mDialogView.spinner.selectedItemPosition)._id
 
-            addNewDebt(debtName, debtValue, debtHolder)
+            if (debtName.isEmpty()) {
+                mDialogView.debtName.error = getString(R.string.debt_name_required)
+                mDialogView.debtName.requestFocus()
+                return@setOnClickListener
+            }
+
+            if (debtValue.isEmpty()) {
+                mDialogView.debtValue.error = getString(R.string.debt_value_required)
+                mDialogView.debtValue.requestFocus()
+                return@setOnClickListener
+            }
+
+            mAlertDialog.dismiss()
+            addNewDebt(debtName, debtValue.toInt(), debtHolder)
         }
 
         mDialogView.dialogCancelBtn.setOnClickListener {
