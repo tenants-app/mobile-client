@@ -23,7 +23,9 @@ class MainActivity : AppCompatActivity(),
     BillsFragment.OnFragmentInteractionListener,
     DebtsFragment.OnFragmentInteractionListener,
     ShoppingListFragment.OnFragmentInteractionListener,
-    CleaningFragment.OnFragmentInteractionListener
+    CleaningFragment.OnFragmentInteractionListener,
+    ShoppingListDetailsFragment.OnFragmentInteractionListener
+
 
 {
     lateinit var billsFragment: BillsFragment

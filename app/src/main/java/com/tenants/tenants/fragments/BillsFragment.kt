@@ -17,6 +17,7 @@ import com.tenants.tenants.R
 import com.tenants.tenants.api.RetrofitClient
 import com.tenants.tenants.models.*
 import com.tenants.tenants.storage.SharedPrefManager
+import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_debts.view.*
 import kotlinx.android.synthetic.main.new_bill_dialog.view.*
 import okhttp3.ResponseBody
@@ -36,6 +37,8 @@ class BillsFragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,savedInstanceState: Bundle?): View? {
         val view: View = inflater.inflate(R.layout.fragment_bills, container, false)
+
+        activity!!.nav_view.setCheckedItem(R.id.sidebar_bills)
 
         val sharedPreferences: SharedPrefManager = SharedPrefManager.getInstance(baseContext)
         currentGroupId = sharedPreferences.groupId
@@ -153,16 +156,24 @@ class BillsFragment : Fragment() {
     override fun onAttach(context: Context) {
         super.onAttach(context)
         baseContext = context
-        if (context is BillsFragment.OnFragmentInteractionListener) {
+        if (context is OnFragmentInteractionListener) {
             listener = context
         } else {
             throw RuntimeException(context.toString() + " must implement OnFragmentInteractionListener")
         }
     }
 
+
     override fun onDetach() {
         super.onDetach()
         listener = null
+    }
+
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        dataList.clear()
+        adapterBill.notifyDataSetChanged()
     }
 
 

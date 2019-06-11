@@ -17,6 +17,7 @@ import com.tenants.tenants.api.RetrofitClient
 import com.tenants.tenants.models.DutiesResponse
 import com.tenants.tenants.models.Duty
 import com.tenants.tenants.storage.SharedPrefManager
+import kotlinx.android.synthetic.main.activity_main.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -31,6 +32,9 @@ class CleaningFragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,savedInstanceState: Bundle?): View? {
         val view: View = inflater.inflate(R.layout.fragment_cleaning, container, false)
+
+        activity!!.nav_view.setCheckedItem(R.id.sidebar_cleaning)
+
 
         val sharedPreferences: SharedPrefManager = SharedPrefManager.getInstance(baseContext)
         currentGroupId = sharedPreferences.groupId
@@ -78,7 +82,7 @@ class CleaningFragment : Fragment() {
     override fun onAttach(context: Context) {
         super.onAttach(context)
         baseContext = context
-        if (context is CleaningFragment.OnFragmentInteractionListener) {
+        if (context is OnFragmentInteractionListener) {
             listener = context
         } else {
             throw RuntimeException(context.toString() + " must implement OnFragmentInteractionListener")
@@ -89,6 +93,13 @@ class CleaningFragment : Fragment() {
     override fun onDetach() {
         super.onDetach()
         listener = null
+    }
+
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        dataList.clear()
+        adapterDuty.notifyDataSetChanged()
     }
 
 

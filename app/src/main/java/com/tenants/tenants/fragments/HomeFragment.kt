@@ -8,6 +8,7 @@ import android.support.v4.app.FragmentTransaction
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.tenants.tenants.MainActivity
 
 import com.tenants.tenants.R
 import kotlinx.android.synthetic.main.activity_main.*
@@ -38,22 +39,19 @@ class HomeFragment : Fragment() {
     ): View? {
         val view: View = inflater.inflate(R.layout.fragment_home, container, false)
 
+        activity!!.nav_view.setCheckedItem(R.id.sidebar_home)
+
+
         view.goDebtText.setOnClickListener {
-            val debtsFragment = DebtsFragment.newInstance()
-            switchFragment(debtsFragment)
-            activity!!.nav_view.setCheckedItem(R.id.sidebar_debts)
+            (activity as MainActivity).switchFragment(DebtsFragment.newInstance())
         }
 
         view.goBillsText.setOnClickListener {
-            val debtsFragment = BillsFragment.newInstance()
-            switchFragment(debtsFragment)
-            activity!!.nav_view.setCheckedItem(R.id.sidebar_bills)
+            (activity as MainActivity).switchFragment(BillsFragment.newInstance())
         }
 
         view.goShoppingListText.setOnClickListener {
-            val debtsFragment = ShoppingListFragment.newInstance()
-            switchFragment(debtsFragment)
-            activity!!.nav_view.setCheckedItem(R.id.sidebar_shopping_list)
+            (activity as MainActivity).switchFragment(ShoppingListFragment.newInstance())
         }
 
         return view
@@ -62,15 +60,6 @@ class HomeFragment : Fragment() {
 
     fun onButtonPressed(uri: Uri) {
         listener?.onFragmentInteraction(uri)
-    }
-
-    fun switchFragment(fragment: Fragment){
-        fragmentManager!!
-            .beginTransaction()
-            .replace(R.id.container, fragment)
-            .addToBackStack(fragment.toString())
-            .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
-            .commit()
     }
 
 

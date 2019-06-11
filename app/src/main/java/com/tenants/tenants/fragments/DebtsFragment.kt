@@ -19,6 +19,7 @@ import com.tenants.tenants.R
 import com.tenants.tenants.api.RetrofitClient
 import com.tenants.tenants.models.*
 import com.tenants.tenants.storage.SharedPrefManager
+import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_debts.view.*
 import kotlinx.android.synthetic.main.new_debt_dialog.view.*
 import okhttp3.ResponseBody
@@ -40,6 +41,9 @@ class DebtsFragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,savedInstanceState: Bundle?): View? {
         val view: View = inflater.inflate(R.layout.fragment_debts, container, false)
+
+        activity!!.nav_view.setCheckedItem(R.id.sidebar_debts)
+
 
         val sharedPreferences: SharedPrefManager = SharedPrefManager.getInstance(baseContext)
         currentGroupId = sharedPreferences.groupId
@@ -178,6 +182,13 @@ class DebtsFragment : Fragment() {
     override fun onDetach() {
         super.onDetach()
         listener = null
+    }
+
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        dataList.clear()
+        adapterDebt.notifyDataSetChanged()
     }
 
 
