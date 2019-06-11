@@ -24,7 +24,8 @@ class MainActivity : AppCompatActivity(),
     DebtsFragment.OnFragmentInteractionListener,
     ShoppingListFragment.OnFragmentInteractionListener,
     CleaningFragment.OnFragmentInteractionListener,
-    ShoppingListDetailsFragment.OnFragmentInteractionListener
+    ShoppingListDetailsFragment.OnFragmentInteractionListener,
+    ShoppingListAddFragment.OnFragmentInteractionListener
 
 
 {
@@ -71,15 +72,11 @@ class MainActivity : AppCompatActivity(),
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        // Inflate the menu; this adds items to the action bar if it is present.
         menuInflater.inflate(R.menu.main, menu)
         return true
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
         when (item.itemId) {
             R.id.action_logout -> {
                 SharedPrefManager.getInstance(applicationContext).clear()
@@ -95,7 +92,6 @@ class MainActivity : AppCompatActivity(),
     }
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
-        // Handle navigation view item clicks here.
         when (item.itemId) {
             R.id.sidebar_home -> {
                 homeFragment = HomeFragment.newInstance("", "")

@@ -45,7 +45,8 @@ class ShoppingListFragment : Fragment() {
         currentGroupMembers = sharedPreferences.groupMembers
 
         view.add_shopping_list.setOnClickListener { view ->
-            //
+            val shoppingListAddFragment = ShoppingListAddFragment.newInstance()
+            (activity as MainActivity).switchFragment(shoppingListAddFragment)
         }
 
         recyclerView = view.findViewById(R.id.recycler_view_shopping_list)

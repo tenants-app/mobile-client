@@ -24,13 +24,13 @@ class ShoppingListRecyclerViewAdapter(private var context: Context, private var 
 
     override fun onBindViewHolder(holder:ViewHolder, position: Int) {
         holder.shoppingListName.text = dataList[position].name
-        holder.shoppingListDate.text = dataList[position].createdAt.subSequence(0, 10)
+        holder.shoppingListDate.text = dataList[position].createdAt?.subSequence(0, 10)
 
         holder.showDetails.setOnClickListener { view ->
             onClickListener.invoke(dataList[position])
         }
 
-        if (dataList[position].debtors[0].paid) {
+        if (dataList[position].debtors!!.get(0)?.paid) {
             holder.card.setBackgroundColor(ContextCompat.getColor(context, R.color.light_green))
         } else {
             holder.card.setBackgroundColor(Color.WHITE)

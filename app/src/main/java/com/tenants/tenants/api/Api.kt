@@ -52,11 +52,20 @@ interface Api {
         @Field("value") value: Int
     ):Call<ResponseBody>
 
+    @POST("/groups/{group_id}/shoppingLists")
+    fun addNewShoppingList(
+        @Path(value = "group_id", encoded = true) groupId: String?,
+        @Body shoppingList: ShoppingList
+    ):Call<ResponseBody>
+
     @GET("/users/groups")
     fun getUserGroups():Call<GroupsResponse>
 
     @GET("/groups/{group_id}/debts")
     fun getUserDebts(@Path(value = "group_id", encoded = true) groupId: String?):Call<DebtsResponse>
+
+    @GET("/groups/{group_id}/shoppingLists")
+    fun getShoppingLists(@Path(value = "group_id", encoded = true) groupId: String?):Call<ShoppingListsResponse>
 
     @GET("/groups/{group_id}/bills")
     fun getUserBills(@Path(value = "group_id", encoded = true) groupId: String?):Call<BillsResponse>
