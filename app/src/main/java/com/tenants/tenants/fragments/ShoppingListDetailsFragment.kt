@@ -59,7 +59,7 @@ class ShoppingListDetailsFragment : Fragment() {
 
     fun getProductTextView(productName: String, productValue: Int): TextView {
         val productTextView = TextView(baseContext)
-        productTextView.text = "● " + productName + " - " + productValue.toString() + "zł"
+        productTextView.text = "◦" + productName + " - " + productValue.toString() + "zł"
         productTextView.setTextSize(18F)
 
         return productTextView
