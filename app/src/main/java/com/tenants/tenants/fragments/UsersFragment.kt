@@ -1,6 +1,8 @@
 package com.tenants.tenants.fragments
 
 import android.app.AlertDialog
+import android.content.ClipData
+import android.content.ClipboardManager
 import android.content.Context
 import android.net.Uri
 import android.os.Bundle
@@ -13,6 +15,7 @@ import android.widget.Toast
 
 import com.tenants.tenants.R
 import com.tenants.tenants.api.ActivationLinkResponse
+import com.tenants.tenants.api.MembersResponse
 import com.tenants.tenants.api.RetrofitClient
 import com.tenants.tenants.storage.SharedPrefManager
 import kotlinx.android.synthetic.main.fragment_users.view.*
@@ -20,6 +23,7 @@ import kotlinx.android.synthetic.main.new_user_dialog.view.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.util.ArrayList
 
 
 class UsersFragment : Fragment() {
@@ -27,7 +31,8 @@ class UsersFragment : Fragment() {
     private lateinit var baseContext: Context
     private var currentGroupId: String? = null
     private lateinit var newUserDialogView: View
-    var mobileArray = arrayOf("Android", "IPhone", "WindowsMobile", "Blackberry", "WebOS", "Ubuntu", "Windows7", "Max OS X")
+    private lateinit var adapterUsers: ArrayAdapter<String>
+    var membersList: ArrayList<String> = ArrayList()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -37,15 +42,38 @@ class UsersFragment : Fragment() {
 
         currentGroupId = SharedPrefManager.getInstance(baseContext).groupId
 
-        val adapter = ArrayAdapter<String>(baseContext, R.layout.user_item, mobileArray)
+        adapterUsers = ArrayAdapter(baseContext, R.layout.user_item, membersList)
 
-        view.usersList.setAdapter(adapter);
+        view.usersList.setAdapter(adapterUsers);
 
         view.addUserButton.setOnClickListener {
             showDialog()
         }
 
+        getGroupMembers()
+
         return view
+    }
+
+
+    fun getGroupMembers() {
+        RetrofitClient(baseContext).instance.getGroupMembers(currentGroupId)
+            .enqueue(object : Callback<MembersResponse> {
+                override fun onFailure(call: Call<MembersResponse>, t: Throwable) {
+                    Toast.makeText(baseContext, t.message, Toast.LENGTH_LONG).show()
+                }
+
+                override fun onResponse(call: Call<MembersResponse>, response: Response<MembersResponse>) {
+                    if (response.code() == 200) {
+                        for (member in response.body()!!.members) {
+                            membersList.add(member.username)
+                        }
+                        adapterUsers.notifyDataSetChanged()
+                    } else {
+                        Toast.makeText(baseContext, response.message(), Toast.LENGTH_LONG).show()
+                    }
+                }
+            })
     }
 
 
@@ -72,11 +100,19 @@ class UsersFragment : Fragment() {
         }
 
         newUserDialogView.dialogCopyClipBoardButton.setOnClickListener {
+            val activationLink = newUserDialogView.activationLinkTextView.text.toString()
+
+            val clipboard = baseContext.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+            val clip = ClipData.newPlainText("activation_link", activationLink)
+            clipboard.setPrimaryClip(clip)
             Toast.makeText(baseContext, R.string.copied_to_clipboard, Toast.LENGTH_LONG).show()
         }
 
         newUserDialogView.dialogSendLinkOnEmailButton.setOnClickListener {
-            Toast.makeText(baseContext, R.string.email_has_been_sent, Toast.LENGTH_LONG).show()
+            val activationLink = newUserDialogView.activationLinkTextView.text.toString()
+            val userEmail = newUserDialogView.dialogUserEmail.text.toString()
+
+            sendEmail(userEmail, activationLink)
         }
 
         newUserDialogView.dialogCancelButton.setOnClickListener {
@@ -101,6 +137,11 @@ class UsersFragment : Fragment() {
                     }
                 }
             })
+    }
+
+
+    fun sendEmail(email: String, invitationLink: String) {
+        Toast.makeText(baseContext, R.string.email_has_been_sent, Toast.LENGTH_LONG).show()
     }
 
 

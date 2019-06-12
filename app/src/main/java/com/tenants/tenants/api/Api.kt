@@ -80,6 +80,9 @@ interface Api {
     @GET("/users/groups")
     fun getUserGroups():Call<GroupsResponse>
 
+    @GET("/groups/{group_id}/members")
+    fun getGroupMembers(@Path(value = "group_id", encoded = true) groupId: String?):Call<MembersResponse>
+
     @GET("/groups/{group_id}/debts")
     fun getUserDebts(@Path(value = "group_id", encoded = true) groupId: String?):Call<DebtsResponse>
 
