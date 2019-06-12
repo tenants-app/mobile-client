@@ -35,6 +35,12 @@ interface Api {
         @Path(value = "bill_id", encoded = true) billId: String?
     ):Call<ResponseBody>
 
+    @POST("/groups/{group_id}/shoppingLists/{shopping_list_id}/paid")
+    fun setShoppingListAsPaid(
+        @Path(value = "group_id", encoded = true) groupId: String?,
+        @Path(value = "shopping_list_id", encoded = true) shoppingListsId: String?
+    ):Call<ResponseBody>
+
     @FormUrlEncoded
     @POST("/groups/{group_id}/debts")
     fun addNewDebt(

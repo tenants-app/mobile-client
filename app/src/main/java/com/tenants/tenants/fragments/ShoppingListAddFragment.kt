@@ -45,7 +45,7 @@ class ShoppingListAddFragment : Fragment() {
         }
 
         view.saveShoppingListButton.setOnClickListener {
-            if (shoppingListNameValid()) {
+            if (shoppingListNameValid() && productListNotEmpty()) {
                 saveShoppingList()
             }
         }
@@ -139,6 +139,11 @@ class ShoppingListAddFragment : Fragment() {
         }
 
         return true
+    }
+
+
+    private fun productListNotEmpty(): Boolean {
+        return !productsList.isEmpty()
     }
 
 

@@ -9,17 +9,19 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import com.tenants.tenants.MainActivity
 
 import com.tenants.tenants.R
 import com.tenants.tenants.ShoppingListRecyclerViewAdapter
-import com.tenants.tenants.models.BillDebtor
-import com.tenants.tenants.models.Product
-import com.tenants.tenants.models.ShoppingList
-import com.tenants.tenants.models.User
+import com.tenants.tenants.api.RetrofitClient
+import com.tenants.tenants.models.*
 import com.tenants.tenants.storage.SharedPrefManager
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_shopping_list.view.*
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class ShoppingListFragment : Fragment() {
     private var listener: OnFragmentInteractionListener? = null
@@ -61,20 +63,24 @@ class ShoppingListFragment : Fragment() {
 
 
     private fun getShoppingList() {
-        //TODO remove below code
+        RetrofitClient(baseContext).instance.getShoppingLists(currentGroupId)
+            .enqueue(object : Callback<ShoppingListsResponse> {
+                override fun onFailure(call: Call<ShoppingListsResponse>, t: Throwable) {
+                    Toast.makeText(baseContext, t.message, Toast.LENGTH_LONG).show()
+                }
 
-        val user = User("Filip", "filip@exmple.com", "1243 1234 1234 1234 1234 1234", "")
+                override fun onResponse(call: Call<ShoppingListsResponse>, response: Response<ShoppingListsResponse>) {
+                    if (response.code() == 200) {
+                        val shoppingListCollection: Array<ShoppingList> = response.body()!!.shoppingLists
+                        shoppingListCollection.sortBy { list -> list.debtors!![0].paid }
 
-        val product1 = Product("", "Płyn do naczyń", 10)
-        val product2 = Product("", "Proszek do prania", 20)
-
-        val debtor1 = BillDebtor("", 15, "Filip", false)
-
-        val list1 = ShoppingList("", "Pierwsza lista", 30, user , arrayOf(product1, product2), arrayOf(debtor1), "11.06.2019")
-
-        dataList.add(list1)
-
-        adapterShoppingList.notifyDataSetChanged()
+                        for (list: ShoppingList in shoppingListCollection) {
+                            dataList.add(list)
+                        }
+                    }
+                    adapterShoppingList.notifyDataSetChanged()
+                }
+            })
     }
 
 

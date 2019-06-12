@@ -25,5 +25,6 @@
     <string name="bill_added">Rachunek został dodany</string>
     <string name="debt_paid">Dług został spłacony</string>
     <string name="bill_paid">Rachunek został spłacony</string>
+    <string name="shopping_list_paid">Lista zakupów została opłcona</string>
     <string name="shopping_list_saved">Lista zakupów została zapisana</string>
 </resources>
