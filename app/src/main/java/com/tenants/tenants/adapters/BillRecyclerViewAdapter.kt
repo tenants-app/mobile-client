@@ -33,7 +33,7 @@ class BillRecyclerViewAdapter(private var context: Context, private var dataList
         holder.billName.text = dataList[position].name
         holder.billDate.text = dataList[position].createdAt.subSequence(0, 10)
         holder.billValue.text = String.format("%s %s", dataList[position].value.toString(), "zł")
-        holder.billValueDivided.text = String.format("%s %s", dataList[position].debtors[0].value.toString(), "zł")
+        holder.billValueDivided.text = String.format("%s %s", dataList[position].debtors.getOrNull(0)?.value.toString(), "zł")
         holder.billHolder.text = dataList[position].user.username
         holder.billHolderBankNumber.text = dataList[position].user.bank_account_number
 
@@ -41,7 +41,7 @@ class BillRecyclerViewAdapter(private var context: Context, private var dataList
             onClickListener.invoke(dataList[position])
         }
 
-        if (dataList[position].debtors[0].paid) {
+        if (dataList[position].debtors.size > 0 && dataList[position].debtors[0].paid) {
             holder.card.setBackgroundColor(ContextCompat.getColor(context, R.color.light_green))
             holder.setAsPaid.visibility = View.GONE
         } else {

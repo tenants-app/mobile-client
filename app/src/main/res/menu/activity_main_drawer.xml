@@ -9,6 +9,10 @@
                 android:icon="@drawable/ic_home"
                 android:title="Home"/>
         <item
+                android:id="@+id/sidebar_apartment"
+                android:icon="@drawable/ic_people_white"
+                android:title="Apartament"/>
+        <item
                 android:id="@+id/sidebar_debts"
                 android:icon="@drawable/ic_payment"
                 android:title="Lista długów"/>

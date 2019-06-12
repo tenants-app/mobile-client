@@ -18,6 +18,7 @@ import com.tenants.tenants.api.ActivationLinkResponse
 import com.tenants.tenants.api.MembersResponse
 import com.tenants.tenants.api.RetrofitClient
 import com.tenants.tenants.storage.SharedPrefManager
+import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_users.view.*
 import kotlinx.android.synthetic.main.new_user_dialog.view.*
 import retrofit2.Call
@@ -39,6 +40,8 @@ class UsersFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val view: View = inflater.inflate(R.layout.fragment_users, container, false)
+
+        activity!!.nav_view.setCheckedItem(R.id.sidebar_apartment)
 
         currentGroupId = SharedPrefManager.getInstance(baseContext).groupId
 

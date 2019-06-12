@@ -32,6 +32,7 @@ class MainActivity : AppCompatActivity(),
 {
     lateinit var billsFragment: BillsFragment
     lateinit var cleaningFragment: CleaningFragment
+    lateinit var usersFragment: UsersFragment
     lateinit var debtsFragment: DebtsFragment
     lateinit var homeFragment: HomeFragment
     lateinit var shoppingListFragment: ShoppingListFragment
@@ -97,6 +98,10 @@ class MainActivity : AppCompatActivity(),
             R.id.sidebar_home -> {
                 homeFragment = HomeFragment.newInstance()
                 switchFragment(homeFragment)
+            }
+            R.id.sidebar_apartment -> {
+                usersFragment = UsersFragment.newInstance()
+                switchFragment(usersFragment)
             }
             R.id.sidebar_debts -> {
                 debtsFragment = DebtsFragment.newInstance()

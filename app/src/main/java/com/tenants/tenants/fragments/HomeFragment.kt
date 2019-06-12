@@ -44,6 +44,10 @@ class HomeFragment : Fragment() {
             (activity as MainActivity).switchFragment(ShoppingListFragment.newInstance())
         }
 
+        view.homeCleaningCard.setOnClickListener {
+            (activity as MainActivity).switchFragment(CleaningFragment.newInstance())
+        }
+
         return view
     }
 

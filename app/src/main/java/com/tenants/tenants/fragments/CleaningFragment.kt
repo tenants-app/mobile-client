@@ -9,12 +9,18 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import com.tenants.tenants.adapters.DutiesRecyclerViewAdapter
 
 import com.tenants.tenants.R
+import com.tenants.tenants.api.DutiesResponse
+import com.tenants.tenants.api.RetrofitClient
 import com.tenants.tenants.models.Duty
 import com.tenants.tenants.storage.SharedPrefManager
 import kotlinx.android.synthetic.main.activity_main.*
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class CleaningFragment : Fragment() {
     private var listener: OnFragmentInteractionListener? = null
@@ -45,31 +51,22 @@ class CleaningFragment : Fragment() {
 
 
     private fun getDuties() {
-        //TODO remove below code
-        val duty1 = Duty("", "Filip", "09.06.2019")
-        val duty2 = Duty("", "Janusz", "10.06.2019")
-        val duty3 = Duty("", "Grazyna", "11.06.2019")
-
-        dataList.add(duty1)
-        dataList.add(duty2)
-        dataList.add(duty3)
-
         adapterDuty.notifyDataSetChanged()
-//        RetrofitClient(baseContext).instance.getDuties(currentGroupId)
-//            .enqueue(object : Callback<DutiesResponse> {
-//                override fun onFailure(call: Call<DutiesResponse>, t: Throwable) {
-//                    Toast.makeText(baseContext, t.message, Toast.LENGTH_LONG).show()
-//                }
-//
-//                override fun onResponse(call: Call<DutiesResponse>, response: Response<DutiesResponse>) {
-//                    if (response.code() == 200) {
-//                        for (duty: Duty in response.body()!!.duties) {
-//                            dataList.add(duty)
-//                        }
-//                    }
-//                    adapterDuty.notifyDataSetChanged()
-//                }
-//            })
+        RetrofitClient(baseContext).instance.getDuties(currentGroupId)
+            .enqueue(object : Callback<DutiesResponse> {
+                override fun onFailure(call: Call<DutiesResponse>, t: Throwable) {
+                    Toast.makeText(baseContext, t.message, Toast.LENGTH_LONG).show()
+                }
+
+                override fun onResponse(call: Call<DutiesResponse>, response: Response<DutiesResponse>) {
+                    if (response.code() == 200) {
+                        for (duty: Duty in response.body()!!.duties) {
+                            dataList.add(duty)
+                        }
+                    }
+                    adapterDuty.notifyDataSetChanged()
+                }
+            })
     }
 
 
