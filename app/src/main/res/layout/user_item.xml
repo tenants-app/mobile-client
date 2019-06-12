@@ -7,5 +7,5 @@
           android:layout_height="fill_parent"
           android:padding="10sp"
           android:textSize="16sp"
-          android:textStyle="bold" >
+          android:textStyle="bold" android:textAlignment="textStart">
 </TextView>

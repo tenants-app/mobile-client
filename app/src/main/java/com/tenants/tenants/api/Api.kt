@@ -23,6 +23,13 @@ interface Api {
         @Field("bank_account_number") bankAccountNumber: String
     ):Call<RegisterResponse>
 
+    @FormUrlEncoded
+    @POST("/groups/generate_member_link")
+    fun generateActivationLink(
+        @Field("email") email:String,
+        @Field("group_id") group_id: String?
+    ):Call<ActivationLinkResponse>
+
     @POST("/groups/{group_id}/debts/{debt_id}/paid")
     fun setDebtAsPaid(
         @Path(value = "group_id", encoded = true) groupId: String?,

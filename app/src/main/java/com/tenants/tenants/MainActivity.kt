@@ -25,7 +25,8 @@ class MainActivity : AppCompatActivity(),
     ShoppingListFragment.OnFragmentInteractionListener,
     CleaningFragment.OnFragmentInteractionListener,
     ShoppingListDetailsFragment.OnFragmentInteractionListener,
-    ShoppingListAddFragment.OnFragmentInteractionListener
+    ShoppingListAddFragment.OnFragmentInteractionListener,
+    UsersFragment.OnFragmentInteractionListener
 
 
 {

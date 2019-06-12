@@ -28,4 +28,6 @@
     <string name="bill_paid">Rachunek został spłacony</string>
     <string name="shopping_list_paid">Lista zakupów została opłcona</string>
     <string name="shopping_list_saved">Lista zakupów została zapisana</string>
+    <string name="copied_to_clipboard">Skopiowano do schowka</string>
+    <string name="email_has_been_sent">Email został wysłany do użytkownika</string>
 </resources>

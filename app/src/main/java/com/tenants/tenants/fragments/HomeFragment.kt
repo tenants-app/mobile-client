@@ -32,6 +32,10 @@ class HomeFragment : Fragment() {
             (activity as MainActivity).switchFragment(DebtsFragment.newInstance())
         }
 
+        view.homeTenantsCard.setOnClickListener {
+            (activity as MainActivity).switchFragment(UsersFragment.newInstance())
+        }
+
         view.homeBillsCard.setOnClickListener {
             (activity as MainActivity).switchFragment(BillsFragment.newInstance())
         }
