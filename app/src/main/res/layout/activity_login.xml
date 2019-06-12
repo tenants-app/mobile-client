@@ -60,10 +60,10 @@
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
             android:layout_marginBottom="15dp"
-            android:background="@color/theme_green"
             android:text="Zaloguj"
             android:textAllCaps="false"
-            android:textColor="@android:color/background_light"/>
+            android:textColor="@android:color/background_light"
+            style="@android:style/Widget.Material.Light.Button" android:backgroundTint="@color/theme_green"/>
     <ImageView
             android:layout_width="357dp"
             android:layout_height="wrap_content" app:srcCompat="@drawable/logo" android:id="@+id/imageView9"

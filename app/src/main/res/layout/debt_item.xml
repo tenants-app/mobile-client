@@ -79,9 +79,9 @@
                 app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="8dp"
                 app:layout_constraintStart_toStartOf="parent" android:layout_marginStart="8dp"
                 android:layout_marginBottom="8dp" app:layout_constraintBottom_toBottomOf="parent"
-                android:textColor="@color/theme_light" android:background="@color/theme_green"
+                android:textColor="@color/theme_light"
                 app:layout_constraintTop_toBottomOf="@+id/bill_holder_bank_number" android:layout_marginTop="8dp"
-                style="@android:style/Widget.Material.Button"/>
+                style="@android:style/Widget.Material.Light.Button" android:backgroundTint="@color/theme_green"/>
 
     </android.support.constraint.ConstraintLayout>
 
