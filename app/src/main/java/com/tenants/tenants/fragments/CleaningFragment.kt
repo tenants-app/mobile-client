@@ -9,18 +9,12 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import com.tenants.tenants.DutiesRecyclerViewAdapter
 
 import com.tenants.tenants.R
-import com.tenants.tenants.api.RetrofitClient
-import com.tenants.tenants.models.DutiesResponse
 import com.tenants.tenants.models.Duty
 import com.tenants.tenants.storage.SharedPrefManager
 import kotlinx.android.synthetic.main.activity_main.*
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 
 class CleaningFragment : Fragment() {
     private var listener: CleaningFragment.OnFragmentInteractionListener? = null

@@ -16,6 +16,7 @@ import com.google.gson.Gson
 import com.tenants.tenants.DeptRecyclerViewAdapter
 
 import com.tenants.tenants.R
+import com.tenants.tenants.api.DebtsResponse
 import com.tenants.tenants.api.RetrofitClient
 import com.tenants.tenants.models.*
 import com.tenants.tenants.storage.SharedPrefManager

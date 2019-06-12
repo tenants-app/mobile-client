@@ -1,4 +1,6 @@
-package com.tenants.tenants.models
+package com.tenants.tenants.api
+
+import com.tenants.tenants.models.*
 
 data class LoginResponse(val user: User)
 

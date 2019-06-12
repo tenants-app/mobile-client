@@ -10,7 +10,7 @@ import android.view.LayoutInflater
 import android.widget.Toast
 import com.tenants.tenants.api.RetrofitClient
 import com.tenants.tenants.models.Group
-import com.tenants.tenants.models.GroupsResponse
+import com.tenants.tenants.api.GroupsResponse
 import com.tenants.tenants.storage.SharedPrefManager
 import kotlinx.android.synthetic.main.empty_groups_view.*
 import kotlinx.android.synthetic.main.new_group_dialog.view.*

@@ -6,7 +6,7 @@ import android.os.Bundle
 import android.support.v4.content.ContextCompat
 import android.widget.Toast
 import com.tenants.tenants.api.RetrofitClient
-import com.tenants.tenants.models.RegisterResponse
+import com.tenants.tenants.api.RegisterResponse
 import com.tenants.tenants.storage.SharedPrefManager
 import kotlinx.android.synthetic.main.activity_register.*
 import retrofit2.Call

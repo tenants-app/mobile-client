@@ -15,6 +15,7 @@ import com.tenants.tenants.MainActivity
 import com.tenants.tenants.R
 import com.tenants.tenants.ShoppingListRecyclerViewAdapter
 import com.tenants.tenants.api.RetrofitClient
+import com.tenants.tenants.api.ShoppingListsResponse
 import com.tenants.tenants.models.*
 import com.tenants.tenants.storage.SharedPrefManager
 import kotlinx.android.synthetic.main.activity_main.*

@@ -14,6 +14,7 @@ import android.widget.Toast
 import com.tenants.tenants.BillRecyclerViewAdapter
 
 import com.tenants.tenants.R
+import com.tenants.tenants.api.BillsResponse
 import com.tenants.tenants.api.RetrofitClient
 import com.tenants.tenants.models.*
 import com.tenants.tenants.storage.SharedPrefManager
