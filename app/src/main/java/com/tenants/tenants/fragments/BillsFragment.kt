@@ -11,12 +11,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import com.tenants.tenants.BillRecyclerViewAdapter
+import com.tenants.tenants.adapters.BillRecyclerViewAdapter
 
 import com.tenants.tenants.R
+import com.tenants.tenants.api.BillsResponse
 import com.tenants.tenants.api.RetrofitClient
 import com.tenants.tenants.models.*
 import com.tenants.tenants.storage.SharedPrefManager
+import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_debts.view.*
 import kotlinx.android.synthetic.main.new_bill_dialog.view.*
 import okhttp3.ResponseBody
@@ -37,6 +39,8 @@ class BillsFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,savedInstanceState: Bundle?): View? {
         val view: View = inflater.inflate(R.layout.fragment_bills, container, false)
 
+        activity!!.nav_view.setCheckedItem(R.id.sidebar_bills)
+
         val sharedPreferences: SharedPrefManager = SharedPrefManager.getInstance(baseContext)
         currentGroupId = sharedPreferences.groupId
         currentGroupMembers = sharedPreferences.groupMembers
@@ -46,7 +50,10 @@ class BillsFragment : Fragment() {
         }
 
         recyclerView = view.findViewById(R.id.recycler_view_bills)
-        adapterBill = BillRecyclerViewAdapter(baseContext, dataList, onClickListener = { bill -> onSetBillAsPaid(bill)})
+        adapterBill = BillRecyclerViewAdapter(
+            baseContext,
+            dataList,
+            onClickListener = { bill -> onSetBillAsPaid(bill) })
         recyclerView.layoutManager = LinearLayoutManager(baseContext, LinearLayoutManager.VERTICAL,false)
         recyclerView.adapter = adapterBill
 
@@ -153,12 +160,13 @@ class BillsFragment : Fragment() {
     override fun onAttach(context: Context) {
         super.onAttach(context)
         baseContext = context
-        if (context is BillsFragment.OnFragmentInteractionListener) {
+        if (context is OnFragmentInteractionListener) {
             listener = context
         } else {
             throw RuntimeException(context.toString() + " must implement OnFragmentInteractionListener")
         }
     }
+
 
     override fun onDetach() {
         super.onDetach()
@@ -166,8 +174,14 @@ class BillsFragment : Fragment() {
     }
 
 
+    override fun onDestroyView() {
+        super.onDestroyView()
+        dataList.clear()
+        adapterBill.notifyDataSetChanged()
+    }
+
+
     interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
         fun onFragmentInteraction(uri: Uri)
     }
 

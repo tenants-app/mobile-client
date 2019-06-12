@@ -9,17 +9,12 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
-import com.tenants.tenants.DutiesRecyclerViewAdapter
+import com.tenants.tenants.adapters.DutiesRecyclerViewAdapter
 
 import com.tenants.tenants.R
-import com.tenants.tenants.api.RetrofitClient
-import com.tenants.tenants.models.DutiesResponse
 import com.tenants.tenants.models.Duty
 import com.tenants.tenants.storage.SharedPrefManager
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
+import kotlinx.android.synthetic.main.activity_main.*
 
 class CleaningFragment : Fragment() {
     private var listener: CleaningFragment.OnFragmentInteractionListener? = null
@@ -31,6 +26,9 @@ class CleaningFragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,savedInstanceState: Bundle?): View? {
         val view: View = inflater.inflate(R.layout.fragment_cleaning, container, false)
+
+        activity!!.nav_view.setCheckedItem(R.id.sidebar_cleaning)
+
 
         val sharedPreferences: SharedPrefManager = SharedPrefManager.getInstance(baseContext)
         currentGroupId = sharedPreferences.groupId
@@ -78,7 +76,7 @@ class CleaningFragment : Fragment() {
     override fun onAttach(context: Context) {
         super.onAttach(context)
         baseContext = context
-        if (context is CleaningFragment.OnFragmentInteractionListener) {
+        if (context is OnFragmentInteractionListener) {
             listener = context
         } else {
             throw RuntimeException(context.toString() + " must implement OnFragmentInteractionListener")
@@ -89,6 +87,13 @@ class CleaningFragment : Fragment() {
     override fun onDetach() {
         super.onDetach()
         listener = null
+    }
+
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        dataList.clear()
+        adapterDuty.notifyDataSetChanged()
     }
 
 

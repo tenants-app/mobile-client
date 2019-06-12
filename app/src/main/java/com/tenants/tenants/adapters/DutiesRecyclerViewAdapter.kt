@@ -1,4 +1,4 @@
-package com.tenants.tenants
+package com.tenants.tenants.adapters
 
 import android.content.Context
 import android.graphics.Color
@@ -9,6 +9,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import com.tenants.tenants.R
 import com.tenants.tenants.models.Duty
 
 class DutiesRecyclerViewAdapter(private var context: Context, private var dataList: ArrayList<Duty>): RecyclerView.Adapter<DutiesRecyclerViewAdapter.ViewHolder>() {
@@ -18,10 +19,16 @@ class DutiesRecyclerViewAdapter(private var context: Context, private var dataLi
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        return ViewHolder(LayoutInflater.from(context).inflate(R.layout.duty_item, parent, false))
+        return ViewHolder(
+            LayoutInflater.from(context).inflate(
+                R.layout.duty_item,
+                parent,
+                false
+            )
+        )
     }
 
-    override fun onBindViewHolder(holder:ViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.dutyUserName.text = dataList[position].username
         holder.dutyDate.text = dataList[position].date
 

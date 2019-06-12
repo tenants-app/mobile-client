@@ -13,12 +13,14 @@ import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.Toast
 import com.google.gson.Gson
-import com.tenants.tenants.DeptRecyclerViewAdapter
+import com.tenants.tenants.adapters.DeptRecyclerViewAdapter
 
 import com.tenants.tenants.R
+import com.tenants.tenants.api.DebtsResponse
 import com.tenants.tenants.api.RetrofitClient
 import com.tenants.tenants.models.*
 import com.tenants.tenants.storage.SharedPrefManager
+import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_debts.view.*
 import kotlinx.android.synthetic.main.new_debt_dialog.view.*
 import okhttp3.ResponseBody
@@ -41,6 +43,9 @@ class DebtsFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,savedInstanceState: Bundle?): View? {
         val view: View = inflater.inflate(R.layout.fragment_debts, container, false)
 
+        activity!!.nav_view.setCheckedItem(R.id.sidebar_debts)
+
+
         val sharedPreferences: SharedPrefManager = SharedPrefManager.getInstance(baseContext)
         currentGroupId = sharedPreferences.groupId
         currentGroupMembers = sharedPreferences.groupMembers
@@ -50,7 +55,10 @@ class DebtsFragment : Fragment() {
         }
 
         recyclerView = view.findViewById(R.id.recycler_view_debts)
-        adapterDebt = DeptRecyclerViewAdapter(baseContext, dataList, onClickListener = { debt -> onSetDebtAsPaid(debt)})
+        adapterDebt = DeptRecyclerViewAdapter(
+            baseContext,
+            dataList,
+            onClickListener = { debt -> onSetDebtAsPaid(debt) })
         recyclerView.layoutManager = LinearLayoutManager(baseContext, LinearLayoutManager.VERTICAL,false)
         recyclerView.adapter = adapterDebt
 
@@ -178,6 +186,13 @@ class DebtsFragment : Fragment() {
     override fun onDetach() {
         super.onDetach()
         listener = null
+    }
+
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        dataList.clear()
+        adapterDebt.notifyDataSetChanged()
     }
 
 

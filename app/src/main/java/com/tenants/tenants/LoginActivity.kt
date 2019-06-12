@@ -5,7 +5,7 @@ import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
 import com.tenants.tenants.api.RetrofitClient
-import com.tenants.tenants.models.LoginResponse
+import com.tenants.tenants.api.LoginResponse
 import com.tenants.tenants.storage.SharedPrefManager
 import kotlinx.android.synthetic.main.activity_login.*
 import retrofit2.Call

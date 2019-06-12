@@ -35,6 +35,12 @@ interface Api {
         @Path(value = "bill_id", encoded = true) billId: String?
     ):Call<ResponseBody>
 
+    @POST("/groups/{group_id}/shoppingLists/{shopping_list_id}/paid")
+    fun setShoppingListAsPaid(
+        @Path(value = "group_id", encoded = true) groupId: String?,
+        @Path(value = "shopping_list_id", encoded = true) shoppingListsId: String?
+    ):Call<ResponseBody>
+
     @FormUrlEncoded
     @POST("/groups/{group_id}/debts")
     fun addNewDebt(
@@ -52,11 +58,26 @@ interface Api {
         @Field("value") value: Int
     ):Call<ResponseBody>
 
+    @FormUrlEncoded
+    @POST("/groups/new")
+    fun addNewGroup(
+        @Field("name") name: String
+    ):Call<ResponseBody>
+
+    @POST("/groups/{group_id}/shoppingLists")
+    fun addNewShoppingList(
+        @Path(value = "group_id", encoded = true) groupId: String?,
+        @Body shoppingList: ShoppingList
+    ):Call<ResponseBody>
+
     @GET("/users/groups")
     fun getUserGroups():Call<GroupsResponse>
 
     @GET("/groups/{group_id}/debts")
     fun getUserDebts(@Path(value = "group_id", encoded = true) groupId: String?):Call<DebtsResponse>
+
+    @GET("/groups/{group_id}/shoppingLists")
+    fun getShoppingLists(@Path(value = "group_id", encoded = true) groupId: String?):Call<ShoppingListsResponse>
 
     @GET("/groups/{group_id}/bills")
     fun getUserBills(@Path(value = "group_id", encoded = true) groupId: String?):Call<BillsResponse>

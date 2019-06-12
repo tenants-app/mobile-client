@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+                                              xmlns:app="http://schemas.android.com/apk/res-auto"
+                                              xmlns:tools="http://schemas.android.com/tools"
+                                              android:layout_width="match_parent"
+                                              android:layout_height="wrap_content"
+                                              android:layout_margin="10dp" android:id="@+id/materialCardView">
+
+    <android.support.constraint.ConstraintLayout
+            android:layout_width="match_parent"
+            android:padding="10dp"
+            android:weightSum="10" android:layout_height="wrap_content">
+        <TextView
+                android:layout_width="237dp"
+                android:layout_height="32dp"
+                android:text="Shopping list name"
+                android:textStyle="bold"
+                android:id="@+id/shopping_list_name" android:textSize="24sp" android:textAlignment="textStart"
+                android:layout_marginTop="8dp" app:layout_constraintTop_toTopOf="parent"
+                android:layout_marginStart="8dp" app:layout_constraintStart_toStartOf="parent"/>
+
+        <TextView
+                android:layout_width="228dp"
+                android:layout_height="33dp"
+                android:layout_weight="6"
+                android:text="Date"
+                android:id="@+id/shopping_list_date"
+                android:textSize="18sp"
+                android:textAlignment="textStart"
+                android:layout_marginStart="8dp" app:layout_constraintStart_toStartOf="parent"
+                android:layout_marginEnd="8dp" app:layout_constraintEnd_toEndOf="parent" android:textStyle="italic"
+                app:layout_constraintHorizontal_bias="0.0" android:layout_marginTop="8dp"
+                app:layout_constraintTop_toBottomOf="@+id/shopping_list_name" android:layout_marginBottom="8dp"
+                app:layout_constraintBottom_toBottomOf="parent"/>
+        <Button
+                android:text="Szczegóły"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/show_details_button"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:layout_marginBottom="8dp" app:layout_constraintBottom_toBottomOf="parent"
+                android:textColor="@color/theme_light" android:background="@color/theme_blue"
+                style="@android:style/Widget.Material.Button"
+                android:layout_marginEnd="8dp"
+                app:layout_constraintEnd_toEndOf="parent" android:layout_marginTop="8dp"
+                app:layout_constraintTop_toTopOf="parent"/>
+
+    </android.support.constraint.ConstraintLayout>
+
+
+</android.support.design.card.MaterialCardView>

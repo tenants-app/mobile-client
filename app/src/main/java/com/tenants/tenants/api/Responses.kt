@@ -1,4 +1,6 @@
-package com.tenants.tenants.models
+package com.tenants.tenants.api
+
+import com.tenants.tenants.models.*
 
 data class LoginResponse(val user: User)
 
@@ -10,6 +12,6 @@ data class DebtsResponse(var debts: Array<Debt>)
 
 data class BillsResponse(var bills: Array<Bill>)
 
-data class DutiesResponse(var duties: Array<Duty>)
+data class ShoppingListsResponse(var shoppingLists: Array<ShoppingList>)
 
-data class DebtResponse(var debt: Debt)
+data class DutiesResponse(var duties: Array<Duty>)

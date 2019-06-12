@@ -8,28 +8,15 @@ import android.support.v4.app.FragmentTransaction
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.tenants.tenants.MainActivity
 
 import com.tenants.tenants.R
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_home.view.*
 
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
 
 class HomeFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
     private var listener: OnFragmentInteractionListener? = null
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
-    }
 
 
     override fun onCreateView(
@@ -38,39 +25,22 @@ class HomeFragment : Fragment() {
     ): View? {
         val view: View = inflater.inflate(R.layout.fragment_home, container, false)
 
-        view.goDebtText.setOnClickListener {
-            val debtsFragment = DebtsFragment.newInstance()
-            switchFragment(debtsFragment)
-            activity!!.nav_view.setCheckedItem(R.id.sidebar_debts)
+        activity!!.nav_view.setCheckedItem(R.id.sidebar_home)
+
+
+        view.homeDebtsCard.setOnClickListener {
+            (activity as MainActivity).switchFragment(DebtsFragment.newInstance())
         }
 
-        view.goBillsText.setOnClickListener {
-            val debtsFragment = BillsFragment.newInstance()
-            switchFragment(debtsFragment)
-            activity!!.nav_view.setCheckedItem(R.id.sidebar_bills)
+        view.homeBillsCard.setOnClickListener {
+            (activity as MainActivity).switchFragment(BillsFragment.newInstance())
         }
 
-        view.goShoppingListText.setOnClickListener {
-            val debtsFragment = ShoppingListFragment.newInstance()
-            switchFragment(debtsFragment)
-            activity!!.nav_view.setCheckedItem(R.id.sidebar_shopping_list)
+        view.homeShoppingCard.setOnClickListener {
+            (activity as MainActivity).switchFragment(ShoppingListFragment.newInstance())
         }
 
         return view
-    }
-
-
-    fun onButtonPressed(uri: Uri) {
-        listener?.onFragmentInteraction(uri)
-    }
-
-    fun switchFragment(fragment: Fragment){
-        fragmentManager!!
-            .beginTransaction()
-            .replace(R.id.container, fragment)
-            .addToBackStack(fragment.toString())
-            .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
-            .commit()
     }
 
 
@@ -91,19 +61,12 @@ class HomeFragment : Fragment() {
 
 
     interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
         fun onFragmentInteraction(uri: Uri)
     }
 
 
     companion object {
         @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            HomeFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
-            }
+        fun newInstance() = HomeFragment()
     }
 }
