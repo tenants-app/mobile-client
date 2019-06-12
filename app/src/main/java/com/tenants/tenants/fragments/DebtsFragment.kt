@@ -13,7 +13,7 @@ import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.Toast
 import com.google.gson.Gson
-import com.tenants.tenants.DeptRecyclerViewAdapter
+import com.tenants.tenants.adapters.DeptRecyclerViewAdapter
 
 import com.tenants.tenants.R
 import com.tenants.tenants.api.DebtsResponse
@@ -55,7 +55,10 @@ class DebtsFragment : Fragment() {
         }
 
         recyclerView = view.findViewById(R.id.recycler_view_debts)
-        adapterDebt = DeptRecyclerViewAdapter(baseContext, dataList, onClickListener = { debt -> onSetDebtAsPaid(debt)})
+        adapterDebt = DeptRecyclerViewAdapter(
+            baseContext,
+            dataList,
+            onClickListener = { debt -> onSetDebtAsPaid(debt) })
         recyclerView.layoutManager = LinearLayoutManager(baseContext, LinearLayoutManager.VERTICAL,false)
         recyclerView.adapter = adapterDebt
 

@@ -11,7 +11,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import com.tenants.tenants.BillRecyclerViewAdapter
+import com.tenants.tenants.adapters.BillRecyclerViewAdapter
 
 import com.tenants.tenants.R
 import com.tenants.tenants.api.BillsResponse
@@ -50,7 +50,10 @@ class BillsFragment : Fragment() {
         }
 
         recyclerView = view.findViewById(R.id.recycler_view_bills)
-        adapterBill = BillRecyclerViewAdapter(baseContext, dataList, onClickListener = { bill -> onSetBillAsPaid(bill)})
+        adapterBill = BillRecyclerViewAdapter(
+            baseContext,
+            dataList,
+            onClickListener = { bill -> onSetBillAsPaid(bill) })
         recyclerView.layoutManager = LinearLayoutManager(baseContext, LinearLayoutManager.VERTICAL,false)
         recyclerView.adapter = adapterBill
 

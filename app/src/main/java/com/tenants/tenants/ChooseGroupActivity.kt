@@ -8,6 +8,7 @@ import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.widget.Toast
+import com.tenants.tenants.adapters.GroupRecyclerViewAdapter
 import com.tenants.tenants.api.RetrofitClient
 import com.tenants.tenants.models.Group
 import com.tenants.tenants.api.GroupsResponse
@@ -32,7 +33,10 @@ class ChooseGroupActivity : AppCompatActivity() {
         supportActionBar!!.setTitle(R.string.select_group)
 
         recyclerView = findViewById(R.id.recycler_view)
-        adapterGroup = GroupRecyclerViewAdapter(this, dataList, onClickListener = { group -> onGroupChoose(group)})
+        adapterGroup = GroupRecyclerViewAdapter(
+            this,
+            dataList,
+            onClickListener = { group -> onGroupChoose(group) })
         recyclerView.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL,false)
         recyclerView.adapter = adapterGroup
 

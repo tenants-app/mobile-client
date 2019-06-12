@@ -13,7 +13,7 @@ import android.widget.Toast
 import com.tenants.tenants.MainActivity
 
 import com.tenants.tenants.R
-import com.tenants.tenants.ShoppingListRecyclerViewAdapter
+import com.tenants.tenants.adapters.ShoppingListRecyclerViewAdapter
 import com.tenants.tenants.api.RetrofitClient
 import com.tenants.tenants.api.ShoppingListsResponse
 import com.tenants.tenants.models.*
@@ -53,7 +53,10 @@ class ShoppingListFragment : Fragment() {
         }
 
         recyclerView = view.findViewById(R.id.recycler_view_shopping_list)
-        adapterShoppingList = ShoppingListRecyclerViewAdapter(baseContext, dataList, onClickListener = { shoppingList -> showDetails(shoppingList)})
+        adapterShoppingList = ShoppingListRecyclerViewAdapter(
+            baseContext,
+            dataList,
+            onClickListener = { shoppingList -> showDetails(shoppingList) })
         recyclerView.layoutManager = LinearLayoutManager(baseContext, LinearLayoutManager.VERTICAL,false)
         recyclerView.adapter = adapterShoppingList
 

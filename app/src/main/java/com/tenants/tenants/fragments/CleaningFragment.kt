@@ -9,7 +9,7 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.tenants.tenants.DutiesRecyclerViewAdapter
+import com.tenants.tenants.adapters.DutiesRecyclerViewAdapter
 
 import com.tenants.tenants.R
 import com.tenants.tenants.models.Duty
