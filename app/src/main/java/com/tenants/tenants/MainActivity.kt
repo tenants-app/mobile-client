@@ -53,7 +53,7 @@ class MainActivity : AppCompatActivity(),
 
         nav_view.setNavigationItemSelectedListener(this)
 
-        homeFragment = HomeFragment.newInstance("", "")
+        homeFragment = HomeFragment.newInstance()
 
         supportFragmentManager
             .beginTransaction()
@@ -94,7 +94,7 @@ class MainActivity : AppCompatActivity(),
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.sidebar_home -> {
-                homeFragment = HomeFragment.newInstance("", "")
+                homeFragment = HomeFragment.newInstance()
                 switchFragment(homeFragment)
             }
             R.id.sidebar_debts -> {

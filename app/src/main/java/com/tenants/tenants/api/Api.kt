@@ -58,6 +58,12 @@ interface Api {
         @Field("value") value: Int
     ):Call<ResponseBody>
 
+    @FormUrlEncoded
+    @POST("/groups/new")
+    fun addNewGroup(
+        @Field("name") name: String
+    ):Call<ResponseBody>
+
     @POST("/groups/{group_id}/shoppingLists")
     fun addNewShoppingList(
         @Path(value = "group_id", encoded = true) groupId: String?,

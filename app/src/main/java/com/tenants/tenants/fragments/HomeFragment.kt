@@ -14,23 +14,9 @@ import com.tenants.tenants.R
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_home.view.*
 
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
 
 class HomeFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
     private var listener: OnFragmentInteractionListener? = null
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
-    }
 
 
     override fun onCreateView(
@@ -42,24 +28,19 @@ class HomeFragment : Fragment() {
         activity!!.nav_view.setCheckedItem(R.id.sidebar_home)
 
 
-        view.goDebtText.setOnClickListener {
+        view.homeDebtsCard.setOnClickListener {
             (activity as MainActivity).switchFragment(DebtsFragment.newInstance())
         }
 
-        view.goBillsText.setOnClickListener {
+        view.homeBillsCard.setOnClickListener {
             (activity as MainActivity).switchFragment(BillsFragment.newInstance())
         }
 
-        view.goShoppingListText.setOnClickListener {
+        view.homeShoppingCard.setOnClickListener {
             (activity as MainActivity).switchFragment(ShoppingListFragment.newInstance())
         }
 
         return view
-    }
-
-
-    fun onButtonPressed(uri: Uri) {
-        listener?.onFragmentInteraction(uri)
     }
 
 
@@ -80,19 +61,12 @@ class HomeFragment : Fragment() {
 
 
     interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
         fun onFragmentInteraction(uri: Uri)
     }
 
 
     companion object {
         @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            HomeFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
-            }
+        fun newInstance() = HomeFragment()
     }
 }

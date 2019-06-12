@@ -1,16 +1,21 @@
 package com.tenants.tenants
 
+import android.app.Activity
+import android.app.AlertDialog
 import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
+import android.view.LayoutInflater
 import android.widget.Toast
 import com.tenants.tenants.api.RetrofitClient
 import com.tenants.tenants.models.Group
 import com.tenants.tenants.models.GroupsResponse
 import com.tenants.tenants.storage.SharedPrefManager
 import kotlinx.android.synthetic.main.empty_groups_view.*
+import kotlinx.android.synthetic.main.new_group_dialog.view.*
+import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -55,7 +60,6 @@ class ChooseGroupActivity : AppCompatActivity() {
                         Toast.makeText(applicationContext, getString(R.string.cannot_get_groups), Toast.LENGTH_LONG).show()
                     }
                     adapterGroup.notifyDataSetChanged()
-
                 }
             })
     }
@@ -69,7 +73,58 @@ class ChooseGroupActivity : AppCompatActivity() {
 
             startActivity(intent)
         }
+
+        add_group_button.setOnClickListener {
+            showAddGroupDialog()
+        }
+
     }
+
+    fun showAddGroupDialog() {
+        val newGroupDialogView = LayoutInflater.from(this).inflate(R.layout.new_group_dialog, null)
+
+        val mBuilder = AlertDialog.Builder(this)
+            .setView(newGroupDialogView)
+            .setTitle("Nowa grupa")
+
+        val  addGroupDialog = mBuilder.show()
+
+        newGroupDialogView.dialogGroupAddButton.setOnClickListener {
+
+            val groupName = newGroupDialogView.groupName.text.toString()
+
+            if (groupName.isEmpty()) {
+                newGroupDialogView.groupName.error = getString(R.string.debt_name_required)
+                newGroupDialogView.groupName.requestFocus()
+                return@setOnClickListener
+            }
+
+            addGroupDialog.dismiss()
+            addNewGroup(groupName)
+        }
+
+        newGroupDialogView.dialogGroupCancelButton.setOnClickListener {
+            addGroupDialog.dismiss()
+        }
+    }
+
+
+    fun addNewGroup(groupName: String) {
+        RetrofitClient(applicationContext).instance.addNewGroup(groupName)
+            .enqueue(object : Callback<ResponseBody> {
+                override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
+                    Toast.makeText(applicationContext, t.message, Toast.LENGTH_LONG).show()
+                }
+
+                override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
+                    if (response.code() == 200) {
+                        Toast.makeText(applicationContext, getString(R.string.group_added), Toast.LENGTH_LONG).show()
+                        recreate()
+                    }
+                }
+            })
+    }
+
 
     private fun onGroupChoose(group: Group) {
         SharedPrefManager.getInstance(applicationContext).saveGroup(group)
