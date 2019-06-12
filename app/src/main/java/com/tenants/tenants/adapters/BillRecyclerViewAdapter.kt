@@ -32,8 +32,8 @@ class BillRecyclerViewAdapter(private var context: Context, private var dataList
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.billName.text = dataList[position].name
         holder.billDate.text = dataList[position].createdAt.subSequence(0, 10)
-        holder.billValue.text = dataList[position].value.toString() + " zł"
-        holder.billValueDivided.text = dataList[position].debtors[0].value.toString() + " zł"
+        holder.billValue.text = String.format("%s %s", dataList[position].value.toString(), "zł")
+        holder.billValueDivided.text = String.format("%s %s", dataList[position].debtors[0].value.toString(), "zł")
         holder.billHolder.text = dataList[position].user.username
         holder.billHolderBankNumber.text = dataList[position].user.bank_account_number
 

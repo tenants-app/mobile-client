@@ -17,7 +17,7 @@ import com.tenants.tenants.storage.SharedPrefManager
 import kotlinx.android.synthetic.main.activity_main.*
 
 class CleaningFragment : Fragment() {
-    private var listener: CleaningFragment.OnFragmentInteractionListener? = null
+    private var listener: OnFragmentInteractionListener? = null
     private var currentGroupId: String? = null
     private var dataList: ArrayList<Duty> = ArrayList()
     private lateinit var baseContext: Context

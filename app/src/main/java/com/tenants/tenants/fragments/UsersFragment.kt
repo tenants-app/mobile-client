@@ -28,11 +28,11 @@ import java.util.ArrayList
 
 class UsersFragment : Fragment() {
     private var listener: OnFragmentInteractionListener? = null
-    private lateinit var baseContext: Context
     private var currentGroupId: String? = null
+    private var membersList: ArrayList<String> = ArrayList()
+    private lateinit var baseContext: Context
     private lateinit var newUserDialogView: View
     private lateinit var adapterUsers: ArrayAdapter<String>
-    var membersList: ArrayList<String> = ArrayList()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

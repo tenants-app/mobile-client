@@ -28,7 +28,7 @@ import retrofit2.Response
 
 
 class BillsFragment : Fragment() {
-    private var listener: BillsFragment.OnFragmentInteractionListener? = null
+    private var listener: OnFragmentInteractionListener? = null
     private var currentGroupId: String? = null
     private var currentGroupMembers: String? = null
     private var dataList: ArrayList<Bill> = ArrayList()

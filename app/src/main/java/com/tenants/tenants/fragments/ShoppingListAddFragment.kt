@@ -24,10 +24,10 @@ import retrofit2.Callback
 import retrofit2.Response
 
 class ShoppingListAddFragment : Fragment() {
-    private lateinit var baseContext: Context
     private var currentGroupId: String? = null
     private var listener: OnFragmentInteractionListener? = null
     private var productsList: ArrayList<Product> = ArrayList()
+    private lateinit var baseContext: Context
 
 
     override fun onCreateView(

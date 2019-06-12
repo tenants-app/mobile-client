@@ -37,7 +37,7 @@ class ShoppingListRecyclerViewAdapter(private var context: Context, private var 
             onClickListener.invoke(dataList[position])
         }
 
-        if (dataList[position].debtors!!.get(0)?.paid) {
+        if (dataList[position].debtors!![0].paid) {
             holder.card.setBackgroundColor(ContextCompat.getColor(context, R.color.light_green))
         } else {
             holder.card.setBackgroundColor(Color.WHITE)

@@ -32,7 +32,7 @@ class DeptRecyclerViewAdapter(private var context: Context, private var dataList
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.debtName.text = dataList[position].name
         holder.debtDate.text = dataList[position].createdAt.subSequence(0, 10)
-        holder.debtValue.text = dataList[position].value.toString() + " zł"
+        holder.debtValue.text = String.format("%s %s", dataList[position].value.toString(), "zł")
         holder.debtHolder.text = dataList[position].holder.username
         holder.debtBankNumber.text = dataList[position].holder.bank_account_number
 

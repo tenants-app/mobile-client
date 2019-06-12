@@ -51,8 +51,8 @@ class ShoppingListDetailsFragment : Fragment() {
         view.shopping_list_holder.text = shoppingList.user?.username
         view.shopping_list_holder_bank_number.text = shoppingList.user?.bank_account_number
         view.shoppingListDate.text = shoppingList.createdAt?.subSequence(0, 10)
-        view.shopping_list_value.text = shoppingList.value.toString() + " zł"
-        view.shopping_list_value_divided.text = shoppingList.debtors!![0].value.toString() + " zł"
+        view.shopping_list_value.text = String.format("%s %s", shoppingList.value.toString(), " zł")
+        view.shopping_list_value_divided.text = String.format("%s %s", shoppingList.debtors!![0].value.toString(), " zł")
 
         for (product: Product in shoppingList.products) {
             val productText = getProductTextView(product.name, product.value)
@@ -74,7 +74,7 @@ class ShoppingListDetailsFragment : Fragment() {
 
     private fun getProductTextView(productName: String, productValue: Int): TextView {
         val productTextView = TextView(baseContext)
-        productTextView.text = "◦ " + productName + " - " + productValue.toString() + "zł"
+        productTextView.text = String.format("%s %s %s %s%s", "◦", productName, "-", productValue.toString(), "zł")
         productTextView.setTextSize(18F)
 
         return productTextView
