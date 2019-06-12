@@ -30,6 +30,13 @@ interface Api {
         @Field("group_id") group_id: String?
     ):Call<ActivationLinkResponse>
 
+    @FormUrlEncoded
+    @POST("/groups/send_member_link")
+    fun sendActivationLink(
+        @Field("email") email:String,
+        @Field("link") link: String?
+    ):Call<ResponseBody>
+
     @POST("/groups/{group_id}/debts/{debt_id}/paid")
     fun setDebtAsPaid(
         @Path(value = "group_id", encoded = true) groupId: String?,

@@ -21,6 +21,7 @@ import com.tenants.tenants.storage.SharedPrefManager
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_users.view.*
 import kotlinx.android.synthetic.main.new_user_dialog.view.*
+import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -144,7 +145,20 @@ class UsersFragment : Fragment() {
 
 
     fun sendEmail(email: String, invitationLink: String) {
-        Toast.makeText(baseContext, R.string.email_has_been_sent, Toast.LENGTH_LONG).show()
+        RetrofitClient(baseContext).instance.sendActivationLink(email, invitationLink)
+            .enqueue(object : Callback<ResponseBody> {
+                override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
+                    Toast.makeText(baseContext, t.message, Toast.LENGTH_LONG).show()
+                }
+
+                override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
+                    if (response.code() == 200) {
+                        Toast.makeText(baseContext, R.string.email_has_been_sent, Toast.LENGTH_LONG).show()
+                    } else {
+                        Toast.makeText(baseContext, response.message(), Toast.LENGTH_LONG).show()
+                    }
+                }
+            })
     }
 
 
