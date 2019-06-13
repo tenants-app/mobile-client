@@ -6,6 +6,6 @@
           android:layout_width="fill_parent"
           android:layout_height="fill_parent"
           android:padding="10sp"
-          android:textSize="16sp"
-          android:textStyle="bold" android:textAlignment="textStart">
+          android:textSize="18sp"
+          android:textAlignment="textStart" android:textAllCaps="true" android:textStyle="bold">
 </TextView>
